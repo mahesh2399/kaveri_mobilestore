@@ -9,6 +9,8 @@ import 'package:kaveri/LOGIN/bloc/login_bloc.dart';
 import 'package:kaveri/PRODUCT/bloc/getproduct_bloc.dart';
 import 'package:kaveri/PRODUCT/prduct_servide/productservice.dart';
 import 'package:kaveri/constants/gorouter.dart';
+import 'package:kaveri/screens/selectedCategory/bloc/selected_category_bloc.dart';
+import 'package:kaveri/screens/selectedCategory/model/service/SelectedCategory.service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,6 +38,9 @@ class MyApp extends StatelessWidget {
 
           BlocProvider<LoginBloc>(
             create: (context) => LoginBloc(LoginService()),
+          ),
+           BlocProvider<SelectedCategoryBloc>(
+            create: (context) => SelectedCategoryBloc(SelectedCategoryService()),
           ),
      
         ],

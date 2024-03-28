@@ -33,7 +33,7 @@ class _CartScreenState extends State<CartScreen> {
     ['Item 2', 'Quantity', '20rs'],
     // Add more rows as needed
   ];
-String dropdownValue = 'One'; 
+  String dropdownValue = 'One';
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -70,19 +70,19 @@ String dropdownValue = 'One';
                         color: Colors.transparent,
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
-                          side: BorderSide(
+                          side: const BorderSide(
                             color: Colors.green,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: ListTile(
-                          leading: Icon(
+                          leading: const Icon(
                             Icons.phone,
                             color: Colors.green,
                           ),
                           title: TextField(
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: 'Enter Your Mobile Number',
                               border: InputBorder.none,
                             ),
@@ -92,7 +92,7 @@ String dropdownValue = 'One';
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Column(
                       children: [
                         Container(
@@ -121,20 +121,20 @@ String dropdownValue = 'One';
                                     'Item',
                                     buildQuantityRow(),
                                     '10rs',
-                                    Icon(Icons.delete_outline,
+                                    const Icon(Icons.delete_outline,
                                         size: 20, color: Colors.green),
                                   ]),
                                   buildTableRow([
                                     'Item',
                                     buildQuantityRow(),
                                     '10rs',
-                                    Icon(Icons.delete_outline,
+                                    const Icon(Icons.delete_outline,
                                         size: 20, color: Colors.green),
                                   ]),
                                 ],
                               ),
                               const Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(8.0),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -177,19 +177,19 @@ String dropdownValue = 'One';
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Shipping Charge',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Container(
-                                      padding: EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                             color:
                                                 Colors.green), // Border color
                                       ),
-                                      child: Text(
+                                      child: const Text(
                                         '200rs',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
@@ -228,7 +228,7 @@ String dropdownValue = 'One';
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                               const     Text(
+                                    const Text(
                                       'Total',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
@@ -240,7 +240,7 @@ String dropdownValue = 'One';
                                             color:
                                                 Colors.green), // Border color
                                       ),
-                                      child: Text(
+                                      child: const Text(
                                         '200',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
@@ -249,68 +249,72 @@ String dropdownValue = 'One';
                                   ],
                                 ),
                               ),
-                             Padding(
-  padding: const EdgeInsets.all(8.0),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Expanded(
-        child: SizedBox(
-          height: 50, // Adjust the height as needed
-          child: Container(
-            padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.green,
-              ), // Border color
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Enter value',
-                border: InputBorder.none,
-              ),
-            ),
-          ),
-        ),
-      ),
-      SizedBox(width: 10),
-      Expanded(
-        child: SizedBox(
-          height: 50, // Adjust the height as needed
-          child: Container(
-            padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.blue,
-              ), // Border color
-            ),
-            child: DropdownButton<String>(
-              value: dropdownValue,
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue!;
-                });
-              },
-              items: <String>['One', 'Two', 'Three', 'Four']
-                  .map<DropdownMenuItem<String>>(
-                      (String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-      ),
-    ],
-  ),
-),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: SizedBox(
+                                        height:
+                                            50, // Adjust the height as needed
+                                        child: Container(
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.green,
+                                            ), // Border color
+                                          ),
+                                          child: const TextField(
+                                            decoration: InputDecoration(
+                                              hintText: 'Enter value',
+                                              border: InputBorder.none,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Expanded(
+                                      child: SizedBox(
+                                        height:
+                                            50, // Adjust the height as needed
+                                        child: Container(
+                                          padding: EdgeInsets.all(8.0),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.blue,
+                                            ), // Border color
+                                          ),
+                                          child: DropdownButton<String>(
+                                            value: dropdownValue,
+                                            onChanged: (String? newValue) {
+                                              setState(() {
+                                                dropdownValue = newValue!;
+                                              });
+                                            },
+                                            items: <String>[
+                                              'One',
+                                              'Two',
+                                              'Three',
+                                              'Four'
+                                            ].map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
 
-
-belowContainerr(0, Icons.verified_user, 'Existing', 'customer')
-
-
+                              
                             ],
                           ),
                         ),
@@ -355,7 +359,7 @@ belowContainerr(0, Icons.verified_user, 'Existing', 'customer')
                   icon,
                   color: isSelected[index]
                       ? Colors.white
-                      : Color.fromRGBO(15, 117, 0, 1),
+                      : const Color.fromRGBO(15, 117, 0, 1),
                   size: ScreenUtil().setWidth(20),
                 ),
                 SizedBox(height: ScreenUtil().setHeight(2)),
@@ -364,7 +368,7 @@ belowContainerr(0, Icons.verified_user, 'Existing', 'customer')
                   style: TextStyle(
                     color: isSelected[index]
                         ? Colors.white
-                        : Color.fromRGBO(15, 117, 0, 1),
+                        : const Color.fromRGBO(15, 117, 0, 1),
                     fontWeight: FontWeight.bold,
                     fontSize: 12.sp,
                   ),
@@ -462,71 +466,65 @@ belowContainerr(0, Icons.verified_user, 'Existing', 'customer')
     );
   }
 
-
-
-Widget belowContainerr(
-  int index, IconData icon, String title1, String title2) {
-  return GestureDetector(
-    onTap: () {
-      setState(() {
-        for (int i = 0; i < isSelected.length; i++) {
-          isSelected[i] = i == index;
-        }
-      });
-    },
-    child: CustomCard(
-      margin: EdgeInsets.all(ScreenUtil().setWidth(10)),
-      padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
-      color: isSelected[index] ? Colors.green : Colors.white,
-      elevation: 4.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(ScreenUtil().setWidth(8.0)),
-      ),
-      child: Container(
-        height: ScreenUtil().setHeight(8), // Adjusted height
-        width: ScreenUtil().setWidth(5),    // Adjusted width
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                color: isSelected[index]
-                    ? Colors.white
-                    : Color.fromRGBO(15, 117, 0, 1),
-                size: ScreenUtil().setWidth(20),
-              ),
-              SizedBox(height: ScreenUtil().setHeight(2)),
-              Text(
-                title1,
-                style: TextStyle(
+  Widget belowContainerr(
+      int index, IconData icon, String title1, String title2) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          for (int i = 0; i < isSelected.length; i++) {
+            isSelected[i] = i == index;
+          }
+        });
+      },
+      child: CustomCard(
+        margin: EdgeInsets.all(ScreenUtil().setWidth(10)),
+        padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
+        color: isSelected[index] ? Colors.green : Colors.white,
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(ScreenUtil().setWidth(8.0)),
+        ),
+        child: Container(
+          height: ScreenUtil().setHeight(8), // Adjusted height
+          width: ScreenUtil().setWidth(5), // Adjusted width
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  icon,
                   color: isSelected[index]
                       ? Colors.white
                       : Color.fromRGBO(15, 117, 0, 1),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10.sp, // Adjusted font size
+                  size: ScreenUtil().setWidth(20),
                 ),
-              ),
-              SizedBox(height: ScreenUtil().setHeight(1)),
-              Text(
-                title2,
-                style: TextStyle(
-                  color: isSelected[index]
-                      ? Colors.white
-                      : Color.fromRGBO(15, 117, 0, 1),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10.sp, // Adjusted font size
+                SizedBox(height: ScreenUtil().setHeight(2)),
+                Text(
+                  title1,
+                  style: TextStyle(
+                    color: isSelected[index]
+                        ? Colors.white
+                        : Color.fromRGBO(15, 117, 0, 1),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10.sp, // Adjusted font size
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(height: ScreenUtil().setHeight(1)),
+                Text(
+                  title2,
+                  style: TextStyle(
+                    color: isSelected[index]
+                        ? Colors.white
+                        : Color.fromRGBO(15, 117, 0, 1),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10.sp, // Adjusted font size
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    ),
-  );
-}
-
-
-
-
+    );
+  }
 }
