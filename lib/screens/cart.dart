@@ -34,6 +34,44 @@ class _CartScreenState extends State<CartScreen> {
     // Add more rows as needed
   ];
   String dropdownValue = 'One';
+
+  String selectedCellText = 'Cash';
+
+  Widget buildCell(String text) {
+    bool isSelected = selectedCellText == text;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedCellText = text;
+        });
+      },
+      child: Align(
+        alignment: Alignment.center,
+        child: Container(
+          width: 75.w,
+          height: 27,
+          margin: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.green,
+              width: 2,
+            ),
+            color: isSelected ? Colors.green : Colors.transparent,
+            // borderRadius: BorderRadius.circular(8),
+          ),
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: isSelected ? Colors.white : Colors.black,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -62,7 +100,7 @@ class _CartScreenState extends State<CartScreen> {
                 child: Column(
                   children: [
                     Container(
-                      width: ScreenUtil().setWidth(250),
+                      width: 280.w,
                       height: ScreenUtil().setHeight(45),
                       child: CustomCard(
                         margin: EdgeInsets.zero,
@@ -257,14 +295,13 @@ class _CartScreenState extends State<CartScreen> {
                                   children: [
                                     Expanded(
                                       child: SizedBox(
-                                        height:
-                                            50, // Adjust the height as needed
+                                        height: 45,
                                         child: Container(
                                           padding: const EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: Colors.green,
-                                            ), // Border color
+                                            ),
                                           ),
                                           child: const TextField(
                                             decoration: InputDecoration(
@@ -278,14 +315,14 @@ class _CartScreenState extends State<CartScreen> {
                                     const SizedBox(width: 10),
                                     Expanded(
                                       child: SizedBox(
-                                        height:
-                                            50, // Adjust the height as needed
+                                        height: 45,
                                         child: Container(
                                           padding: EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
                                             border: Border.all(
-                                              color: Colors.blue,
-                                            ), // Border color
+                                              color: Colors.green,
+                                              width: 2,
+                                            ),
                                           ),
                                           child: DropdownButton<String>(
                                             value: dropdownValue,
@@ -313,8 +350,57 @@ class _CartScreenState extends State<CartScreen> {
                                   ],
                                 ),
                               ),
-
-                              
+                              // Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child:
+                              Center(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      buildCell('Cash'),
+                                      buildCell('Card'),
+                                      buildCell('COD'),
+                                    ],
+                                  ),
+                                ),
+                                // ),
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Center(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {},
+                                        child: Container(
+                                          width: 250.w,
+                                          height: 40,
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            // borderRadius:
+                                            //     BorderRadius.circular(8),
+                                          ),
+                                          child: const Center(
+                                            child: Text(
+                                              'Complete Order',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -433,32 +519,43 @@ class _CartScreenState extends State<CartScreen> {
   Widget buildQuantityRow() {
     return Container(
       height: ScreenUtil().setHeight(25),
-      // width: ScreenUtil().setWidth(10),
+      width: 18.w,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          IconButton(
-            onPressed: decreaseQuantity,
-            icon: Icon(
-              Icons.remove,
-              size: ScreenUtil().setWidth(9),
+          Flexible(
+            flex: 1,
+            child: IconButton(
+              onPressed: decreaseQuantity,
+              icon: Icon(
+                Icons.remove,
+                size: ScreenUtil().setWidth(9),
+              ),
             ),
           ),
-          Text(
-            '$quantity',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: ScreenUtil().setSp(9),
+          Flexible(
+            flex: 1,
+            child: Center(
+              // Aligns the quantity text in the center
+              child: Text(
+                '$quantity',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: ScreenUtil().setSp(9),
+                ),
+              ),
             ),
           ),
-          IconButton(
-            onPressed: increaseQuantity,
-            icon: Icon(
-              Icons.add,
-              size: ScreenUtil().setWidth(9),
+          Flexible(
+            flex: 1,
+            child: IconButton(
+              onPressed: increaseQuantity,
+              icon: Icon(
+                Icons.add,
+                size: ScreenUtil().setWidth(9),
+              ),
             ),
           ),
         ],
