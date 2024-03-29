@@ -1,0 +1,1 @@
+ C:\\Users\\FirstC-014\\Desktop\\kaveri_mobilestore\\.dart_tool\\flutter_build\\b11f1e8af025dc57306b533681f2ce67\\native_assets.yaml: 

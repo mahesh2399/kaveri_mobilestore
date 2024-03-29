@@ -76,9 +76,8 @@ final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
 final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
 
-// the one and only GoRouter instance
 final goRouter = GoRouter(
-  initialLocation: '/category',
+  initialLocation: '/login',
   navigatorKey: _rootNavigatorKey,
   routes: [
     GoRoute(
@@ -92,7 +91,6 @@ final goRouter = GoRouter(
         return ScaffoldWithNestedNavigation(navigationShell: navigationShell);
       },
       branches: [
-        // first branch (A)
         StatefulShellBranch(
           navigatorKey: _shellNavigatorCKey,
           routes: [
@@ -120,7 +118,6 @@ final goRouter = GoRouter(
             ),
           ],
         ),
-
         StatefulShellBranch(
           navigatorKey: _shellNavigatorAKey,
           routes: [

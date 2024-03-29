@@ -12,7 +12,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginBloc(LoginService()), 
+      create: (context) => LoginBloc(LoginService()),
       child: const LoginForm(),
     );
   }
@@ -49,121 +49,102 @@ class _LoginFormState extends State<LoginForm> {
           return Container(
             color: Colors.green.withOpacity(0.1),
             child: Scaffold(
-              appBar: AppBar(
-                title: const Text('Login', textAlign: TextAlign.center),
-              ),
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Align(
                     alignment: Alignment.center,
-                    child: Icon(
-                      Icons.login,
-                      size: 64,
-                      color: Colors.green,
-                    ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Card(
-                      color: Colors.green,
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'User Email',
-                            ),
-                            TextField(
-                              controller: _usernameController,
-                              decoration: InputDecoration(
-                                // labelText: 'Username',
-                                hintText: "Enter Your Email",
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        children: [
+                          // Text(
+                          //   'User Email',
+                          // ),
+                          TextField(
+                            controller: _usernameController,
+                            decoration: InputDecoration(
+                              // labelText: 'Username',
+                              hintText: "Enter Your Email",
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
-                            const SizedBox(height: 20),
-                            Text(
-                              'Password',
-                            ),
-                            TextField(
-                              controller: _passwordController,
-                              decoration: InputDecoration(
-                                // labelText: 'Password',
-                                hintText: "Enter Your Password",
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
+                          ),
+                          const SizedBox(height: 20),
+                          // Text(
+                          //   'Password',
+                          // ),
+                          TextField(
+                            controller: _passwordController,
+                            decoration: InputDecoration(
+                              // labelText: 'Password',
+                              hintText: "Enter Your Password",
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
-                              obscureText: true,
                             ),
-                            const SizedBox(height: 20),
-                            Align(
-                              alignment: Alignment.center,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  //   BlocProvider.of<LoginBloc>(context).add(
-                                  //     LoginButtonPressed(
-                                  //       username: _usernameController.text,
-                                  //       password: _passwordController.text,
-                                  //     ),
-                                  //   );
+                            obscureText: true,
+                          ),
+                          const SizedBox(height: 20),
+                          Align(
+                            alignment: Alignment.center,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                //   BlocProvider.of<LoginBloc>(context).add(
+                                //     LoginButtonPressed(
+                                //       username: _usernameController.text,
+                                //       password: _passwordController.text,
+                                //     ),
+                                //   );
 
-                                  if (_usernameController.text.isNotEmpty &&
-                                      _passwordController.text.isNotEmpty) {
-                                    BlocProvider.of<LoginBloc>(context).add(
-                                      LoginButtonPressed(
-                                        username: _usernameController.text,
-                                        password: _passwordController.text,
-                                      ),
-                                    );
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content:
-                                            Text('Please fill in all fields.'),
-                                      ),
-                                    );
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary:
-                                      const Color.fromARGB(255, 255, 255, 255),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
+                                if (_usernameController.text.isNotEmpty &&
+                                    _passwordController.text.isNotEmpty) {
+                                  BlocProvider.of<LoginBloc>(context).add(
+                                    LoginButtonPressed(
+                                      username: _usernameController.text,
+                                      password: _passwordController.text,
+                                    ),
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                          Text('Please fill in all fields.'),
+                                    ),
+                                  );
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    const Color.fromARGB(255, 255, 255, 255),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 20.0, vertical: 10.0),
-                                  child: Text(
-                                    'Login',
-                                    style: TextStyle(fontSize: 18.0),
-                                  ),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20.0, vertical: 10.0),
+                                child: Text(
+                                  'Login',
+                                  style: TextStyle(fontSize: 18.0,
+                                  color:Colors.green),
+                                  
                                 ),
                               ),
                             ),
-                            if (state is LoginLoading)
-                              const SizedBox(
-                                  height: 20.0,
-                                  child: CircularProgressIndicator()),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                          ),
+                          if (state is LoginLoading)
+                            const SizedBox(
+                                height: 20.0,
+                                child: CircularProgressIndicator()),
+                        ],
+                      )),
                 ],
               ),
             ),

@@ -1,6 +1,4 @@
-
-
-String kbaseUrl = 'http://192.168.29.223/StoreAdminApi/public/index.php';
+String kbaseUrl = 'http://192.168.0.165/newadminstoreapi/public/index.php';
 
 
 // Map<String, String> kheader = {

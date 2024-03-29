@@ -1,4 +1,4 @@
-#Thu Mar 28 16:57:14 IST 2024
-base.0=/home/firstc-lp-004/my projects/kaverii/kaveri/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-renamed.0=classes.dex
+#Fri Mar 29 17:26:45 IST 2024
+base.0=C\:\\Users\\FirstC-014\\Desktop\\kaveri_mobilestore\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
+renamed.0=classes.dex

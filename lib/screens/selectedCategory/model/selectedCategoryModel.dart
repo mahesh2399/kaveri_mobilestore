@@ -2,6 +2,7 @@ class Category {
   final String id;
   final String name;
   final String slug;
+  final String thumbnail_image_url;
   final String type;
   final String description;
   final String status;
@@ -16,6 +17,7 @@ class Category {
     required this.id,
     required this.name,
     required this.slug,
+    required this.thumbnail_image_url,
     required this.type,
     required this.description,
     required this.status,
@@ -32,6 +34,7 @@ class Category {
       id: json['id'] ?? '',
       name: json['name'] ?? '',
       slug: json['slug'] ?? '',
+      thumbnail_image_url: json[' thumbnail_image_url'] ?? '',
       type: json['type'] ?? '',
       description: json['description'] ?? '',
       status: json['status'] ?? '',

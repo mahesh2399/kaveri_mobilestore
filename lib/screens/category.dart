@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:kaveri/BRAND/bloc/get_brands_bloc.dart';
 import 'package:kaveri/CATEGORY/bloc/get_category_bloc.dart';
 import 'package:kaveri/PRODUCT/bloc/getproduct_bloc.dart';
 import 'package:kaveri/PRODUCT/product_model/product_model.dart';
@@ -83,10 +82,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           final brand = state.category[index];
                           return GestureDetector(
                             onTap: () {
-                              // Log the ID of the selected brand
                               log('Selected brand ID: ${brand.id}');
 
-                              context.read<SelectedCategoryBloc>().add(FetchSelectedCategoryEvent(brand.id));
+                              context
+                                  .read<SelectedCategoryBloc>()
+                                  .add(FetchSelectedCategoryEvent(brand.id));
                             },
                             child: Padding(
                               padding: EdgeInsets.symmetric(
@@ -203,29 +203,97 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   ScreenUtil().setWidth(600)
                               ? 5
                               : 3,
-                          childAspectRatio: 1 / 0.7,
+                          childAspectRatio: 1,
                           mainAxisSpacing: 10.h,
                         ),
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           if (index < filteredProducts.length) {
+                            final product = filteredProducts[index];
                             return Padding(
                               padding: EdgeInsets.symmetric(
                                 horizontal: ScreenUtil().setWidth(20),
                                 vertical: ScreenUtil().setHeight(0),
                               ),
-                              child: Container(
-                                color: Colors.white,
-                                width: ScreenUtil().setWidth(200),
-                                height: ScreenUtil().setHeight(130),
-                                child: ImageTextCard(
-                                  imagePath: 'assets/fruits.png',
-                                  name: filteredProducts[index].name,
-                                  price: filteredProducts[index].salePrice,
-                                  stock: filteredProducts[index].stockStatus,
-                                  isGreen: filteredProducts[index].stockStatus,
-                                  productsCount:
-                                      filteredProducts[index].productsCount,
+                              child: GestureDetector(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(20)),
+                                    ),
+                                    builder: (BuildContext context) {
+                                      return SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.9,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(20),
+                                          decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(20)),
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                'assets/fruits.png',
+                                                width: 100,
+                                                height: 100,
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                // product.name,
+                                                'Product Name: ${product.name}',
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                'Price: ${product.salePrice} ر.ع.',
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 20),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.green,
+                                                ),
+                                                child:
+                                                    const Text('Add to Cart'),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Container(
+                                  color: Colors.white,
+                                  // width: ScreenUtil().setWidth(200),
+                                  // height: ScreenUtil().setHeight(130),
+                                  child: ImageTextCard(
+                                    imagePath: 'assets/fruits.png',
+                                    name: filteredProducts[index].name,
+                                    price: filteredProducts[index].salePrice,
+                                    stock: filteredProducts[index].stockStatus,
+                                    isGreen:
+                                        filteredProducts[index].stockStatus,
+                                    productsCount:
+                                        filteredProducts[index].productsCount,
+                                  ),
                                 ),
                               ),
                             );
