@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:kaveri/BRAND/bloc/get_brands_bloc.dart';
+import 'package:kaveri/CATEGORY/bloc/get_category_bloc.dart';
 import 'package:kaveri/PRODUCT/bloc/getproduct_bloc.dart';
 import 'package:kaveri/PRODUCT/product_model/product_model.dart';
 import 'package:kaveri/common/card_product/card.dart';
@@ -28,7 +29,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<GetBrandsBloc>(context).add(FetchBrandsEvent());
+    BlocProvider.of<GetCategoryBloc>(context).add(FetchCategoryEvent());
     BlocProvider.of<GetproductBloc>(context).add(FetchProductsEvent());
   }
 
@@ -64,9 +65,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ),
               ),
               SizedBox(height: ScreenUtil().setHeight(20)),
-              BlocBuilder<GetBrandsBloc, GetBrandsState>(
+              BlocBuilder<GetCategoryBloc, GetCategoryState>(
                 builder: (context, state) {
-                  if (state is BrandsLoaded) {
+                  if (state is GetCategoryLoaded) {
                     return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: ScreenUtil().screenWidth >
@@ -78,8 +79,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ),
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        if (index < state.brands.length) {
-                          final brand = state.brands[index];
+                        if (index < state.category.length) {
+                          final brand = state.category[index];
                           return GestureDetector(
                             onTap: () {
                               // Log the ID of the selected brand
@@ -109,14 +110,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           return SizedBox.shrink();
                         }
                       },
-                      itemCount: state.brands.length,
+                      itemCount: state.category.length,
                       shrinkWrap: true,
                     );
-                  } else if (state is BrandsLoading) {
+                  } else if (state is GetCategoryLoading) {
                     return const CircularProgressIndicator();
-                  } else if (state is BrandsLoadFailure) {
+                  } else if (state is GetCategoryLoadFailure) {
                     log(state.error);
-                    return Text('Failed to load brands: ${state.error}');
+                    return Text('Failed to load category: ${state.error}');
                   } else {
                     return Container();
                   }

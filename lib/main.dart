@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:kaveri/BRAND/bloc/get_brands_bloc.dart';
 import 'package:kaveri/BRAND/brand_servive/brandservice.dart';
+import 'package:kaveri/CATEGORY/bloc/get_category_bloc.dart';
+import 'package:kaveri/CATEGORY/category_service/categoryservice.dart';
 import 'package:kaveri/LOGIN/bloc/login.service.dart';
 import 'package:kaveri/LOGIN/bloc/login_bloc.dart';
 import 'package:kaveri/PRODUCT/bloc/getproduct_bloc.dart';
@@ -30,19 +32,19 @@ class MyApp extends StatelessWidget {
           BlocProvider<GetBrandsBloc>(
             create: (context) => GetBrandsBloc(BrandService()),
           ),
-
-
-           BlocProvider<GetproductBloc>(
+          BlocProvider<GetproductBloc>(
             create: (context) => GetproductBloc(ProductService()),
           ),
-
           BlocProvider<LoginBloc>(
             create: (context) => LoginBloc(LoginService()),
           ),
-           BlocProvider<SelectedCategoryBloc>(
-            create: (context) => SelectedCategoryBloc(SelectedCategoryService()),
+          BlocProvider<SelectedCategoryBloc>(
+            create: (context) =>
+                SelectedCategoryBloc(SelectedCategoryService()),
           ),
-     
+          BlocProvider<GetCategoryBloc>(
+            create: (context) => GetCategoryBloc(CategoryService()),
+          ),
         ],
         child: MaterialApp.router(
           routerConfig: goRouter,
