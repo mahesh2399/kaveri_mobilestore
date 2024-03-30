@@ -4,6 +4,7 @@ import 'package:kaveri/screens/selectedCategory/bloc/selected_category_bloc.dart
 import 'package:kaveri/screens/selectedCategory/model/selectedCategoryModel.dart';
 
 class SelectedCategory extends StatelessWidget {
+  
   const SelectedCategory({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {

@@ -16,6 +16,7 @@ import 'package:kaveri/screens/selectedCategory/bloc/selected_category_bloc.dart
 import 'package:kaveri/screens/selectedCategory/bloc/selected_category_event.dart';
 
 class CategoryScreen extends StatefulWidget {
+  static String routeName = "category";
   const CategoryScreen({
     super.key,
   });

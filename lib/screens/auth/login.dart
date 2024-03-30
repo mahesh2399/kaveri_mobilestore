@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kaveri/LOGIN/bloc/login.service.dart';
 
 import 'package:kaveri/LOGIN/bloc/login_bloc.dart';
 import 'package:kaveri/LOGIN/bloc/login_event.dart';
 import 'package:kaveri/LOGIN/bloc/login_state.dart';
+import 'package:kaveri/screens/category.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -35,7 +37,8 @@ class _LoginFormState extends State<LoginForm> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          Navigator.of(context).pushReplacementNamed('/home');
+          // Navigator.of(context).pushReplacementNamed('/home')  ;
+          context.goNamed(CategoryScreen.routeName);
         } else if (state is LoginFailure) {
           // Display an error message if login fails
           ScaffoldMessenger.of(context)
@@ -132,9 +135,8 @@ class _LoginFormState extends State<LoginForm> {
                                     horizontal: 20.0, vertical: 10.0),
                                 child: Text(
                                   'Login',
-                                  style: TextStyle(fontSize: 18.0,
-                                  color:Colors.green),
-                                  
+                                  style: TextStyle(
+                                      fontSize: 18.0, color: Colors.green),
                                 ),
                               ),
                             ),

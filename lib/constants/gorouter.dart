@@ -95,6 +95,7 @@ final goRouter = GoRouter(
           navigatorKey: _shellNavigatorCKey,
           routes: [
             GoRoute(
+              name: CategoryScreen.routeName,
                 path: '/category',
                 pageBuilder: (context, state) => const NoTransitionPage(
                       child: CategoryScreen(),
