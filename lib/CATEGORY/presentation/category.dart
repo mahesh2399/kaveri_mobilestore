@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:kaveri/category/bloc/get_category_bloc.dart';
+import 'package:kaveri/CATEGORY/bloc/get_category_bloc.dart';
 import 'package:kaveri/common/widgets/custom_container_widget.dart';
 import 'package:kaveri/products/bloc/getproduct_bloc.dart';
 import 'package:kaveri/products/product_model/product_model.dart';

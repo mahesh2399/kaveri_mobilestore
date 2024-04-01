@@ -1,14 +1,14 @@
-com.example.kaveri.app-jetified-annotation-experimental-1.1.0-0 C:\Users\premk\.gradle\caches\transforms-3\09db32a73384ac2dccccf916d7dc0262\transformed\jetified-annotation-experimental-1.1.0\res
-com.example.kaveri.app-core-1.6.0-1 C:\Users\premk\.gradle\caches\transforms-3\168e459aae59caaab0d2c703cf9d67ab\transformed\core-1.6.0\res
-com.example.kaveri.app-jetified-window-1.0.0-beta04-2 C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\res
-com.example.kaveri.app-jetified-window-java-1.0.0-beta04-3 C:\Users\premk\.gradle\caches\transforms-3\978180320ed1d29d66a82edc9d24751e\transformed\jetified-window-java-1.0.0-beta04\res
-com.example.kaveri.app-debug-4 D:\Flutter_projects\kaveri_mobilestore\android\app\src\debug\res
-com.example.kaveri.app-main-5 D:\Flutter_projects\kaveri_mobilestore\android\app\src\main\res
-com.example.kaveri.app-pngs-6 D:\Flutter_projects\kaveri_mobilestore\build\app\generated\res\pngs\debug
-com.example.kaveri.app-resValues-7 D:\Flutter_projects\kaveri_mobilestore\build\app\generated\res\resValues\debug
-com.example.kaveri.app-rs-8 D:\Flutter_projects\kaveri_mobilestore\build\app\generated\res\rs\debug
-com.example.kaveri.app-mergeDebugResources-9 D:\Flutter_projects\kaveri_mobilestore\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
-com.example.kaveri.app-mergeDebugResources-10 D:\Flutter_projects\kaveri_mobilestore\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
-com.example.kaveri.app-merged_res-11 D:\Flutter_projects\kaveri_mobilestore\build\app\intermediates\merged_res\debug
-com.example.kaveri.app-packaged_res-12 D:\Flutter_projects\kaveri_mobilestore\build\connectivity_plus\intermediates\packaged_res\debug
-com.example.kaveri.app-packaged_res-13 D:\Flutter_projects\kaveri_mobilestore\build\path_provider_android\intermediates\packaged_res\debug
+com.example.kaveri.app-jetified-annotation-experimental-1.1.0-0 /home/firstc-lp-004/.gradle/caches/transforms-3/02315cc9f75263553d2042718fc375ee/transformed/jetified-annotation-experimental-1.1.0/res
+com.example.kaveri.app-jetified-window-1.0.0-beta04-1 /home/firstc-lp-004/.gradle/caches/transforms-3/076eb9235982ee06112d76594ea8585f/transformed/jetified-window-1.0.0-beta04/res
+com.example.kaveri.app-jetified-window-java-1.0.0-beta04-2 /home/firstc-lp-004/.gradle/caches/transforms-3/99750bb863b6fe460a7b5da8686e778d/transformed/jetified-window-java-1.0.0-beta04/res
+com.example.kaveri.app-core-1.6.0-3 /home/firstc-lp-004/.gradle/caches/transforms-3/d08c73bfb05384f2e52578171dbd141e/transformed/core-1.6.0/res
+com.example.kaveri.app-debug-4 /home/firstc-lp-004/my projects/githu/kaveri_mobilestore/android/app/src/debug/res
+com.example.kaveri.app-main-5 /home/firstc-lp-004/my projects/githu/kaveri_mobilestore/android/app/src/main/res
+com.example.kaveri.app-pngs-6 /home/firstc-lp-004/my projects/githu/kaveri_mobilestore/build/app/generated/res/pngs/debug
+com.example.kaveri.app-resValues-7 /home/firstc-lp-004/my projects/githu/kaveri_mobilestore/build/app/generated/res/resValues/debug
+com.example.kaveri.app-rs-8 /home/firstc-lp-004/my projects/githu/kaveri_mobilestore/build/app/generated/res/rs/debug
+com.example.kaveri.app-mergeDebugResources-9 /home/firstc-lp-004/my projects/githu/kaveri_mobilestore/build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir
+com.example.kaveri.app-mergeDebugResources-10 /home/firstc-lp-004/my projects/githu/kaveri_mobilestore/build/app/intermediates/incremental/debug/mergeDebugResources/stripped.dir
+com.example.kaveri.app-merged_res-11 /home/firstc-lp-004/my projects/githu/kaveri_mobilestore/build/app/intermediates/merged_res/debug
+com.example.kaveri.app-packaged_res-12 /home/firstc-lp-004/my projects/githu/kaveri_mobilestore/build/connectivity_plus/intermediates/packaged_res/debug
+com.example.kaveri.app-packaged_res-13 /home/firstc-lp-004/my projects/githu/kaveri_mobilestore/build/path_provider_android/intermediates/packaged_res/debug

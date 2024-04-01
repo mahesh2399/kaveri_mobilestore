@@ -2,8 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:kaveri/brand/bloc/get_brands_bloc.dart';
+import 'package:kaveri/BRAND/bloc/get_brands_bloc.dart';
 import 'package:kaveri/common/widgets/custom_container_widget.dart';
 import 'package:kaveri/products/bloc/getproduct_bloc.dart';
 import 'package:kaveri/products/product_model/product_model.dart';

@@ -1,8 +1,8 @@
 
 
 import 'package:bloc/bloc.dart';
-import 'package:kaveri/brand/brand)_model/brand_model.dart';
-import 'package:kaveri/brand/brand_servive/brandservice.dart';
+import 'package:kaveri/BRAND/brand)_model/brand_model.dart';
+import 'package:kaveri/BRAND/brand_servive/brandservice.dart';
 import 'package:meta/meta.dart';
 
 part 'get_brands_event.dart';

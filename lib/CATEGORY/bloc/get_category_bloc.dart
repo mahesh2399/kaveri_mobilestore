@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:kaveri/category/category_service/categoryservice.dart';
+import 'package:kaveri/CATEGORY/category_service/categoryservice.dart';
 import 'package:kaveri/screens/selectedCategory/model/selectedCategoryModel.dart';
 
 part 'get_category_event.dart';
