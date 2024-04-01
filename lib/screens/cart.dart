@@ -77,6 +77,7 @@ class _CartScreenState extends State<CartScreen> {
     ScreenUtil.init(context);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
@@ -130,7 +131,7 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                       ),
                       const SizedBox(height: 10),
-//button goes heare 
+//button goes heare
                       const SizedBox(height: 10),
                       Column(
                         children: [

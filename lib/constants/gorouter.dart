@@ -66,9 +66,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kaveri/constants/bottom_nav_bar.dart';
 import 'package:kaveri/screens/auth/login.dart';
-import 'package:kaveri/screens/brand.dart';
+import 'package:kaveri/brand/presentation/brand.dart';
 import 'package:kaveri/screens/cart.dart';
-import 'package:kaveri/screens/category.dart';
+import 'package:kaveri/category/presentation/category.dart';
 import 'package:kaveri/screens/selectedcategory.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -77,7 +77,7 @@ final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
 
 final goRouter = GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/category',
   navigatorKey: _rootNavigatorKey,
   routes: [
     GoRoute(

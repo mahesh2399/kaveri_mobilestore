@@ -1,7 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
 
 class ImageTextCard extends StatelessWidget {
   final String imagePath;
@@ -44,50 +44,54 @@ class ImageTextCard extends StatelessWidget {
           border: Border.all(color: Color.fromARGB(255, 228, 228, 228)),
           borderRadius: BorderRadius.circular(12.0),
         ),
-        width: ScreenUtil().setWidth(100),
-        height: ScreenUtil().setHeight(150),
         child: Card(
           color: Colors.white,
           elevation: 0,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Image.asset(
-                imagePath,
-                width: ScreenUtil().setWidth(30),
-                height: ScreenUtil().setHeight(30),
-                fit: BoxFit.cover,
-              ),
-              // SizedBox(height: 3.h),
-              Text(
-
-                name,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 7.sp,
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                flex: 3,
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.cover,
                 ),
               ),
               // SizedBox(height: 3.h),
-              Text(
-                '$price ر.ع.',
-                style: TextStyle(
-                  fontSize: 7.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              // SizedBox(height: 3.h),
-              Container(
-                height: 10.h,
-                width: 50.w,
-                color: stockColor,
-                alignment: Alignment.center,
+              Expanded(
                 child: Text(
-                  '$stockLabel: $productsCount',
+                  name,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 5.sp,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              // SizedBox(height: 3.h),
+              Expanded(
+                child: Text(
+                  '$price ر.ع.',
+                  style: TextStyle(
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              // SizedBox(height: 3.h),
+              Expanded(
+                child: Container(
+                  height: 10.h,
+                  width: 50.w,
+                  color: stockColor,
+                  alignment: Alignment.center,
+                  child: Text(
+                    '$stockLabel: $productsCount',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 5.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -98,10 +102,6 @@ class ImageTextCard extends StatelessWidget {
     );
   }
 }
-
-
-
-
 
 class CustomCard extends StatelessWidget {
   final Widget child;

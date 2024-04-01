@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kaveri/LOGIN/bloc/login.service.dart';
+import 'package:kaveri/login/bloc/login.service.dart';
 
-import 'package:kaveri/LOGIN/bloc/login_bloc.dart';
-import 'package:kaveri/LOGIN/bloc/login_event.dart';
-import 'package:kaveri/LOGIN/bloc/login_state.dart';
-import 'package:kaveri/screens/category.dart';
+import 'package:kaveri/login/bloc/login_bloc.dart';
+import 'package:kaveri/login/bloc/login_event.dart';
+import 'package:kaveri/login/bloc/login_state.dart';
+import 'package:kaveri/category/presentation/category.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

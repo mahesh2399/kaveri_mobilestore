@@ -13,16 +13,16 @@
 13         to allow setting breakpoints, to provide hot reload, etc.
 14    -->
 15    <uses-permission android:name="android.permission.INTERNET" />
-15-->C:\Users\FirstC-014\Desktop\kaveri_mobilestore\android\app\src\debug\AndroidManifest.xml:6:5-66
-15-->C:\Users\FirstC-014\Desktop\kaveri_mobilestore\android\app\src\debug\AndroidManifest.xml:6:22-64
+15-->D:\Flutter_projects\kaveri_mobilestore\android\app\src\debug\AndroidManifest.xml:6:5-66
+15-->D:\Flutter_projects\kaveri_mobilestore\android\app\src\debug\AndroidManifest.xml:6:22-64
 16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-16-->[:connectivity_plus] C:\Users\FirstC-014\Desktop\kaveri_mobilestore\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
-16-->[:connectivity_plus] C:\Users\FirstC-014\Desktop\kaveri_mobilestore\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-76
+16-->[:connectivity_plus] D:\Flutter_projects\kaveri_mobilestore\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
+16-->[:connectivity_plus] D:\Flutter_projects\kaveri_mobilestore\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-76
 17
 18    <application
 19        android:name="android.app.Application"
 20        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-20-->[androidx.core:core:1.6.0] C:\Users\FirstC-014\.gradle\caches\transforms-3\168e459aae59caaab0d2c703cf9d67ab\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
+20-->[androidx.core:core:1.6.0] C:\Users\premk\.gradle\caches\transforms-3\168e459aae59caaab0d2c703cf9d67ab\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
 21        android:debuggable="true"
 22        android:icon="@mipmap/ic_launcher"
 23        android:label="kaveri" >
@@ -60,17 +60,17 @@
 55            android:value="2" />
 56
 57        <uses-library
-57-->[androidx.window:window:1.0.0-beta04] C:\Users\FirstC-014\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+57-->[androidx.window:window:1.0.0-beta04] C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
 58            android:name="androidx.window.extensions"
-58-->[androidx.window:window:1.0.0-beta04] C:\Users\FirstC-014\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+58-->[androidx.window:window:1.0.0-beta04] C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
 59            android:required="false" />
-59-->[androidx.window:window:1.0.0-beta04] C:\Users\FirstC-014\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+59-->[androidx.window:window:1.0.0-beta04] C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
 60        <uses-library
-60-->[androidx.window:window:1.0.0-beta04] C:\Users\FirstC-014\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+60-->[androidx.window:window:1.0.0-beta04] C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
 61            android:name="androidx.window.sidecar"
-61-->[androidx.window:window:1.0.0-beta04] C:\Users\FirstC-014\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+61-->[androidx.window:window:1.0.0-beta04] C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
 62            android:required="false" />
-62-->[androidx.window:window:1.0.0-beta04] C:\Users\FirstC-014\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+62-->[androidx.window:window:1.0.0-beta04] C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
 63    </application>
 64
 65</manifest>

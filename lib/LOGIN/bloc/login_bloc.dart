@@ -1,8 +1,8 @@
 // login_bloc.dart
 import 'package:bloc/bloc.dart';
-import 'package:kaveri/LOGIN/bloc/login.service.dart';
-import 'package:kaveri/LOGIN/bloc/login_event.dart';
-import 'package:kaveri/LOGIN/bloc/login_state.dart';
+import 'package:kaveri/login/bloc/login.service.dart';
+import 'package:kaveri/login/bloc/login_event.dart';
+import 'package:kaveri/login/bloc/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginService loginService;

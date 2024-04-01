@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
-
-import 'package:flutter/services.dart';
-
-import 'package:kaveri/BRAND/brand)_model/brand_model.dart';
+import 'package:kaveri/brand/brand)_model/brand_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:kaveri/constants/api_url.dart';
 
