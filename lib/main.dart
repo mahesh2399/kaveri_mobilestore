@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kaveri/BRAND/bloc/get_brands_bloc.dart';
 import 'package:kaveri/BRAND/brand_servive/brandservice.dart';
@@ -13,6 +14,7 @@ import 'package:kaveri/products/prduct_servide/productservice.dart';
 import 'package:kaveri/constants/gorouter.dart';
 import 'package:kaveri/screens/selectedCategory/bloc/selected_category_bloc.dart';
 import 'package:kaveri/screens/selectedCategory/model/service/SelectedCategory.service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -47,6 +49,14 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp.router(
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate
+          ],
+          locale: Locale('en'),
+          supportedLocales: [Locale('en')],
           routerConfig: goRouter,
           debugShowCheckedModeBanner: false,
         ),

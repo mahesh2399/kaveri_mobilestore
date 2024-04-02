@@ -23,10 +23,10 @@ class BrandService {
 
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body)["data"] as List<dynamic>;
-        log(response.body);  
+        log(response.body);
         final brand =
             jsonData.map((brandJson) => Brand.fromJson(brandJson)).toList();
-
+// rand image is not comming 
         return brand;
       } else {
         throw Exception('Failed to load products: ${response.reasonPhrase}');

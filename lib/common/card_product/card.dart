@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kaveri/constants/api_url.dart';
 
 class ImageTextCard extends StatelessWidget {
   final String imagePath;
@@ -52,10 +53,18 @@ class ImageTextCard extends StatelessWidget {
             children: [
               Expanded(
                 flex: 3,
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.cover,
-                ),
+                // child: Image.asset(
+                //   imagePath,
+                //   fit: BoxFit.cover,
+                // ),
+
+                                     child: Image.network(
+                                            imagePath,
+                                            height: 100,
+                                            width: 100,
+                                            fit: BoxFit.contain,
+                                          ),
+
               ),
               // SizedBox(height: 3.h),
               Expanded(

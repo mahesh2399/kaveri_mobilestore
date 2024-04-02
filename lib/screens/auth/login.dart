@@ -6,7 +6,9 @@ import 'package:kaveri/LOGIN/bloc/login.service.dart';
 import 'package:kaveri/LOGIN/bloc/login_bloc.dart';
 import 'package:kaveri/LOGIN/bloc/login_event.dart';
 import 'package:kaveri/LOGIN/bloc/login_state.dart';
-
+import 'package:kaveri/common/header.dart';
+import 'package:kaveri/constants/bloc_observer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -56,15 +58,17 @@ class _LoginFormState extends State<LoginForm> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Align(
-                    alignment: Alignment.center,
-                  ),
+                      alignment: Alignment.topCenter, child: HeaderWidget()),
                   Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
                         children: [
-                          // Text(
-                          //   'User Email',
-                          // ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'User Email',
+                            ),
+                          ),
                           TextField(
                             controller: _usernameController,
                             decoration: InputDecoration(
@@ -78,9 +82,12 @@ class _LoginFormState extends State<LoginForm> {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          // Text(
-                          //   'Password',
-                          // ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Password',
+                            ),
+                          ),
                           TextField(
                             controller: _passwordController,
                             decoration: InputDecoration(
@@ -130,11 +137,11 @@ class _LoginFormState extends State<LoginForm> {
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
-                              child: const Padding(
+                              child:  Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 20.0, vertical: 10.0),
                                 child: Text(
-                                  'Login',
+                                  AppLocalizations.of(context)!.login,
                                   style: TextStyle(
                                       fontSize: 18.0, color: Colors.green),
                                 ),

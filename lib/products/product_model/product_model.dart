@@ -8,7 +8,7 @@ class Product {
   final int blogsCount;
   final int productsCount;
   final String thumbnailImage;
-  final String thumbnailImageUrl;
+  final String thumbnail_image_url;
   final String salePrice;
   final String discount;
   final String isFeatured;
@@ -25,7 +25,7 @@ class Product {
     required this.blogsCount,
     required this.productsCount,
     required this.thumbnailImage,
-    required this.thumbnailImageUrl,
+    required this.thumbnail_image_url,
     required this.salePrice,
     required this.discount,
     required this.isFeatured,
@@ -44,7 +44,7 @@ class Product {
       blogsCount: json['blogs_count'] ?? 0,
       productsCount: json['products_count'] ?? 0,
       thumbnailImage: json['thumbnail_image'] ?? '',
-      thumbnailImageUrl: json['thumbnail_image_url'] ?? '',
+      thumbnail_image_url: json['thumbnail_image_url'] ?? '',
       salePrice: json['sale_price'] ?? '',
       discount: json['discount'] ?? '',
       isFeatured: json['is_featured'] ?? '',

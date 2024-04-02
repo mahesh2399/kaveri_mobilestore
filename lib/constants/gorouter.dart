@@ -79,7 +79,7 @@ final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
 
 final goRouter = GoRouter(
-  initialLocation: '/category',
+  initialLocation: '/login',
   navigatorKey: _rootNavigatorKey,
   routes: [
     GoRoute(

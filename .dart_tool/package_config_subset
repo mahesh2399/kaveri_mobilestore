@@ -94,6 +94,10 @@ http_parser
 2.12
 file:///home/firstc-lp-004/.pub-cache/hosted/pub.dev/http_parser-4.0.2/
 file:///home/firstc-lp-004/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib/
+intl
+2.12
+file:///home/firstc-lp-004/.pub-cache/hosted/pub.dev/intl-0.18.1/
+file:///home/firstc-lp-004/.pub-cache/hosted/pub.dev/intl-0.18.1/lib/
 js
 3.1
 file:///home/firstc-lp-004/.pub-cache/hosted/pub.dev/js-0.7.1/
@@ -178,6 +182,10 @@ provider
 2.12
 file:///home/firstc-lp-004/.pub-cache/hosted/pub.dev/provider-6.1.2/
 file:///home/firstc-lp-004/.pub-cache/hosted/pub.dev/provider-6.1.2/lib/
+shimmer
+2.17
+file:///home/firstc-lp-004/.pub-cache/hosted/pub.dev/shimmer-3.0.0/
+file:///home/firstc-lp-004/.pub-cache/hosted/pub.dev/shimmer-3.0.0/lib/
 source_span
 2.18
 file:///home/firstc-lp-004/.pub-cache/hosted/pub.dev/source_span-1.10.0/
@@ -238,6 +246,10 @@ flutter
 3.2
 file:///home/firstc-lp-004/snap/flutter/common/flutter/packages/flutter/
 file:///home/firstc-lp-004/snap/flutter/common/flutter/packages/flutter/lib/
+flutter_localizations
+3.2
+file:///home/firstc-lp-004/snap/flutter/common/flutter/packages/flutter_localizations/
+file:///home/firstc-lp-004/snap/flutter/common/flutter/packages/flutter_localizations/lib/
 flutter_test
 3.2
 file:///home/firstc-lp-004/snap/flutter/common/flutter/packages/flutter_test/
