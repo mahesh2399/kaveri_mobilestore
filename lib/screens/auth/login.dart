@@ -137,11 +137,12 @@ class _LoginFormState extends State<LoginForm> {
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
-                              child:  Padding(
+                              child: const Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 20.0, vertical: 10.0),
                                 child: Text(
-                                  AppLocalizations.of(context)!.login,
+                                  // AppLocalizations.of(context)!.login,
+                                  'login',
                                   style: TextStyle(
                                       fontSize: 18.0, color: Colors.green),
                                 ),

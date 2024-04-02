@@ -49,14 +49,14 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp.router(
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate
-          ],
-          locale: Locale('en'),
-          supportedLocales: [Locale('en')],
+          // localizationsDelegates: [
+          //   AppLocalizations.delegate,
+          //   GlobalMaterialLocalizations.delegate,
+          //   GlobalWidgetsLocalizations.delegate,
+          //   GlobalCupertinoLocalizations.delegate
+          // ],
+          // locale: Locale('en'),
+          // supportedLocales: [Locale('en')],
           routerConfig: goRouter,
           debugShowCheckedModeBanner: false,
         ),
