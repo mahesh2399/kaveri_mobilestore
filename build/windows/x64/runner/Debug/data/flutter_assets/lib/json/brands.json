@@ -1,0 +1,102 @@
+{ 
+    "data": [ 
+        { 
+            "id": "6", 
+            "name": "P&Gfg", 
+            "slug": "pg-DRw1A", 
+            "type": "post", 
+            "description": "fg", 
+            "status": "0", 
+            "created_by_id": 1, 
+            "created_at": "2024-03-06 03:21:29", 
+            "updated_at": "2024-03-06 03:21:29", 
+            "deleted_at": null, 
+            "blogs_count": 6, 
+            "products_count": 0 
+        }, 
+        { 
+            "id": "7", 
+            "name": "A2B", 
+            "slug": "a2b-YUYrf", 
+            "type": "post", 
+            "description": null, 
+            "status": "1", 
+            "created_by_id": 1, 
+            "created_at": "2024-03-06 03:22:19", 
+            "updated_at": "2024-03-06 03:22:19", 
+            "deleted_at": null, 
+            "blogs_count": 6, 
+            "products_count": 0 
+        }, 
+        { 
+            "id": "8", 
+            "name": "Sakthi", 
+            "slug": "sakthi-LWekM", 
+            "type": "post", 
+            "description": null, 
+            "status": "1", 
+            "created_by_id": 1, 
+            "created_at": "2024-03-06 03:22:38", 
+            "updated_at": "2024-03-06 03:22:38", 
+            "deleted_at": null, 
+            "blogs_count": 6, 
+            "products_count": 0 
+        }, 
+        { 
+            "id": "9", 
+            "name": "Aachi", 
+            "slug": "aachi-kpH4n", 
+            "type": "post", 
+            "description": null, 
+            "status": "1", 
+            "created_by_id": 1, 
+            "created_at": "2024-03-06 03:23:15", 
+            "updated_at": "2024-03-06 03:23:15", 
+            "deleted_at": null, 
+            "blogs_count": 6, 
+            "products_count": 0 
+        }, 
+        { 
+            "id": "10", 
+            "name": "ITC", 
+            "slug": "itc-r96Op", 
+            "type": "post", 
+            "description": null, 
+            "status": "1", 
+            "created_by_id": 1, 
+            "created_at": "2024-03-06 03:23:49", 
+            "updated_at": "2024-03-06 03:23:49", 
+            "deleted_at": null, 
+            "blogs_count": 6, 
+            "products_count": 0 
+        }, 
+        { 
+            "id": "11", 
+            "name": "Tata", 
+            "slug": "tata-SrCrQ", 
+            "type": "post", 
+            "description": null, 
+            "status": "1", 
+            "created_by_id": 1, 
+            "created_at": "2024-03-06 03:24:01", 
+            "updated_at": "2024-03-06 03:24:01", 
+            "deleted_at": null, 
+            "blogs_count": 6, 
+            "products_count": 0 
+        }, 
+        { 
+            "id": "12", 
+            "name": "UL", 
+            "slug": "ul-iOjrl", 
+            "type": "post", 
+            "description": null, 
+            "status": "1", 
+            "created_by_id": 1, 
+            "created_at": "2024-03-06 03:24:20", 
+            "updated_at": "2024-03-06 03:24:20", 
+            "deleted_at": null, 
+            "blogs_count": 6, 
+            "products_count": 0 
+        } 
+    ] 
+}

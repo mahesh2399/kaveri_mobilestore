@@ -1,0 +1,10 @@
+^C:\USERS\FC-LP-013\DESKTOP\KAVERI\KAVERI_MOBILESTORE\BUILD\WINDOWS\X64\CMAKEFILES\B399A5FC5F0CEF3658439AFCFBFBC81C\INSTALL_FORCE.RULE
+setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

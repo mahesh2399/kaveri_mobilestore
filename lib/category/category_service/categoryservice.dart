@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 class CategoryService {
   Future<List<Category>> fetchCategories() async {
-    try {
+    // try {
       final response = await http.get(
         Uri.parse('$kbaseUrl/admin/get_category'),
       );
@@ -25,9 +25,9 @@ class CategoryService {
               throw jsonDecode(response.body)['messageobject']['message'];
 
       }
-    } catch (e) {
-      throw Exception('Something went wrong');
-    }
+    // } catch (e) {
+    //   throw Exception('Something went wrong$e');
+    // }
   }
 
   Future<List<CategoryProduct>> fetchProductsBasedOnCategories({required String categoryId}) async {
@@ -40,6 +40,7 @@ class CategoryService {
         // log(response.body); 
         List<CategoryProduct> categories = List.from(jsonDecode(response.body)['data']).map((e)=>CategoryProduct.fromJson(e)).toList();
 // from this thumbile image is not comming from api
+log('$categories');
         return categories;
       } else {
         throw jsonDecode(response.body)['messageobject']['message'];

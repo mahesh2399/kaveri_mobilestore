@@ -8,7 +8,7 @@ class FetchCategoryEvent extends GetCategoryEvent {
 }
 
 class GetCategoryFetchProductsEvent extends GetCategoryEvent {
-  final String categoryId;
+ 
 
-  GetCategoryFetchProductsEvent({required this.categoryId});
+  GetCategoryFetchProductsEvent();
 }

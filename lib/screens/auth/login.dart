@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kaveri/category/bloc/get_category_bloc.dart';
 import 'package:kaveri/category/presentation/category.dart';
 import 'package:kaveri/login/bloc/login.service.dart';
 import 'package:kaveri/login/bloc/login_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:kaveri/login/bloc/login_event.dart';
 import 'package:kaveri/login/bloc/login_state.dart';
 import 'package:kaveri/common/header.dart';
 import 'package:kaveri/constants/bloc_observer.dart';
+import 'package:kaveri/products/bloc/getproduct_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -119,7 +121,11 @@ class _LoginFormState extends State<LoginForm> {
                                       username: _usernameController.text,
                                       password: _passwordController.text,
                                     ),
+                                    
                                   );
+                                   BlocProvider.of<GetCategoryBloc>(context).add(FetchCategoryEvent());
+
+    BlocProvider.of<GetproductBloc>(context).add(FetchProductsEvent());
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
