@@ -1,0 +1,1 @@
+ /home/firstc-lp-004/my\ projects/githu/kaveri_mobilestore/.dart_tool/flutter_build/8f339b67b52122d922443168829f663d/native_assets.yaml: 

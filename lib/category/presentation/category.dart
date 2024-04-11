@@ -91,6 +91,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ),
                 ),
                 SizedBox(height: ScreenUtil().setHeight(20)),
+                
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: ScreenUtil().setWidth(10)),
@@ -125,6 +126,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       log(category.id);
                                     },
                                     child: CustomContainer(
+                                      
                                       child: Column(
                                         children: [
                                           Expanded(
@@ -230,7 +232,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             state.categoryProductList;
                         return GridView.builder(
                           gridDelegate:
-                          
                               SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: ScreenUtil().screenWidth >
                                     ScreenUtil().setWidth(600)
@@ -270,7 +271,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                 CrossAxisAlignment.center,
                                             children: [
                                               Image.network(
-                                                "$imageAccess${product.thumbnail_image_url}",
+                                                "$imageAccess${product.thumbnailImageUrl}",
                                                 height: 100,
                                                 width: 100,
                                                 fit: BoxFit.contain,
@@ -319,7 +320,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   // height: ScreenUtil().setHeight(130),
                                   child: ImageTextCard(
                                     imagePath:
-                                        "$imageAccess${product.thumbnail_image_url}",
+                                        "$imageAccess${product.thumbnailImageUrl}",
                                     name: filteredProducts[index].name,
                                     price: filteredProducts[index].salePrice,
                                     stock: filteredProducts[index].stockStatus,
@@ -334,17 +335,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               return const SizedBox.shrink();
                             }
                           },
-                          itemCount: itemCount,
+                          itemCount: filteredProducts.length,
                           shrinkWrap: true,
                         );
                       } else if (state is ProductsLoading) {
                         return const CircularProgressIndicator();
-                      } else if (state is ProductsLoadFailure) {
-                        log(state.error);
-                        return Text('Failed to load products: ${state.error}');
-                      } else {
-                        return Container();
                       }
+                      return Container();
                     },
                   ),
                 ),

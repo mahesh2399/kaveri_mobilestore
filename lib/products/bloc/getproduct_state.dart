@@ -1,6 +1,6 @@
 part of 'getproduct_bloc.dart';
 
-@immutable
+
 sealed class GetproductState {}
 
 final class GetproductInitial extends GetproductState {}
@@ -12,8 +12,8 @@ class ProductsLoaded extends GetproductState {
  ProductsLoaded(this.products);
 }
 
-class ProductsLoadFailure extends GetproductState {
+ final class ProductsLoadFailure extends GetproductState {
   final String error;
 
-  ProductsLoadFailure(this.error);
+  ProductsLoadFailure({required this.error});
 }

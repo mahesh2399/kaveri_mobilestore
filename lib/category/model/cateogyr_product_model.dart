@@ -5,6 +5,7 @@ class CategoryProduct {
     required this.id,
     required this.name,
     required this.slug,
+    
     this.description,
     this.categoryImageId,
     this.categoryIconId,
