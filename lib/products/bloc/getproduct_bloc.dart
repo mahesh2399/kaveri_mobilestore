@@ -26,7 +26,7 @@ class GetproductBloc extends Bloc<GetproductEvent, GetproductState> {
        emit(ProductsLoaded(products));
       } catch (e) {
 
-         emit(ProductsLoadFailure('Failed to fetch brands: $e'));
+         emit(ProductsLoadFailure(error: 'Failed to fetch brands: $e'));
         
       }
 
