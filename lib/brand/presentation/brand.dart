@@ -278,7 +278,7 @@ class _BrandScreenState extends State<BrandScreen> {
                       List<Product> filteredProducts = state.products
                           .where((product) => product.name
                               .toLowerCase()
-                              .contains(searchText.toLowerCase()))
+                              .contains(searchText.toLowerCase(),),)
                           .toList();
 
                       final itemCount = _showAllProducts

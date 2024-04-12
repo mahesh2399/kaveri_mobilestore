@@ -4,7 +4,7 @@
             "outputFile": "com.example.kaveri.app-mergeDebugResources-9:/values-uk/values-uk.xml",
             "map": [
                 {
-                    "source": "/home/firstc-lp-004/.gradle/caches/transforms-3/d08c73bfb05384f2e52578171dbd141e/transformed/core-1.6.0/res/values-uk/values-uk.xml",
+                    "source": "C:\\Users\\FC-LP-013\\.gradle\\caches\\transforms-3\\7c1d12144b2ebda7a6da3814a09658ad\\transformed\\core-1.6.0\\res\\values-uk\\values-uk.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

@@ -1,22 +1,15 @@
 
-
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaveri/category/bloc/get_category_bloc.dart';
 import 'package:kaveri/common/card_product/card.dart';
-
 import 'package:kaveri/common/widgets/custom_container_widget.dart';
+import 'package:kaveri/constants/api_url.dart';
 import 'package:kaveri/constants/custom_colorcode.dart';
 import 'package:kaveri/products/bloc/getproduct_bloc.dart';
-
-
-
 import 'package:kaveri/common/header.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kaveri/screens/selectedCategory/model/selectedCategoryModel.dart';
 
 
 
@@ -35,10 +28,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<GetCategoryBloc>(context).add(FetchCategoryEvent());
-
-    // BlocProvider.of<GetproductBloc>(context).add(FetchProductsEvent());
-    BlocProvider.of<GetCategoryBloc>(context).add(GetCategoryFetchProductsEvent());
-
   }
 
   String searchText = '';
@@ -144,7 +133,7 @@ if (state is GetCategoryLoading ) {
                                                       flex: 4,
                                                       child: Image.asset(
                                                         'assets/bucketfruits.png',
-                                                        fit: BoxFit.contain,
+                                                        fit: BoxFit.fill,
                                                       ),
                                                     ),
                                                     Expanded(
@@ -226,126 +215,52 @@ if (state is GetCategoryLoading ) {
             
                      
                                   
-                                   GridView.builder(
-                                      itemCount: 2,
-                                    shrinkWrap: true,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: ScreenUtil().screenWidth >
-                                              ScreenUtil().setWidth(600)
-                                          ? 5
-                                          : 3,
-                                      childAspectRatio: 1,
-                                      mainAxisSpacing: 10.h,
-                                    ),
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                  
-                                        return GestureDetector(
-                                          onTap: () {
-                                            showModalBottomSheet(
-                                              context: context,
-                                              shape: const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.vertical(
-                                                    top: Radius.circular(20)),
-                                              ),
-                                              builder: (BuildContext context) {
-                                                return SizedBox(
-                                                  // width:
-                                                  //     MediaQuery.of(context).size.width *
-                                                  //         0.9,
-                                                  width: double.infinity,
-                                                  child: Container(
-                                                    padding: const EdgeInsets.all(20),
-                                                    decoration: const BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius: BorderRadius.vertical(
-                                                          top: Radius.circular(20)),
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize: MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment.center,
-                                                      children: [
-                                                        Image.network(
-                                                          "imageAccess${''}",
-                                                          height: 100,
-                                                          width: 100,
-                                                          fit: BoxFit.contain,
-                                                        ),
-                                                        const SizedBox(height: 10),
-                                                         Text(
-                                                          "${state.categoryProductList[index].name}"
-                                                          // 'Product Name: ${product.name}',
-            '',
-                                                          style: TextStyle(
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 16,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(height: 10),
-                                                        const Text(
-                                                          // 'Price: ${product.salePrice} ر.ع.',
-            '',
-                                                          style: TextStyle(
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 16,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(height: 20),
-                                                        ElevatedButton(
-                                                          onPressed: () {
-                                                            Navigator.of(context).pop();
-                                                          },
-                                                          style: ElevatedButton.styleFrom(
-                                                            backgroundColor: Colors.green,
-                                                          ),
-                                                          child: const Text(
-                                                            'Add to Cart',
-                                                            style: TextStyle(
-                                                                color: Colors.white),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          },
-                                        //   child: Container(
-                                        //     color: Colors.white,
-                                        //     // width: ScreenUtil().setWidth(200),
-                                        //     // height: ScreenUtil().setHeight(130),
-                                        //     // child: const ImageTextCard(imagePath: '', name: '', price: '', stock: '', isGreen: '', productsCount: 0,
-                                        // child:   '',
-                                        //       name: state.categoryProductList[index].name,
-                                        //       price: state.categoryProductList[index].salePrice,
-                                        //       stock: state.categoryProductList[index].stockStatus,
-                                        //       isGreen:
-                                        //           state.categoryProductList[index].stockStatus,
-                                        //       productsCount:
-                                        //           state.categoryProductList[index].productsCount,
-                                        //     ),
-                                        //   ),
-                                        // );
-                                      // } else {
-                                      //   return const SizedBox.shrink();
-                                      // }
-                                    },
-                                   )
-                                  
-                                // } else if (state is ProductsLoading) {
-                                //   return const CircularProgressIndicator();
-                                // }
-                              
-                              
-                              
-                            
+                                   Padding(
+                                     padding: const EdgeInsets.all(8.0),
+                                     child: GridView.builder(
+                                        itemCount: state.categoryProductList.length,
+                                      shrinkWrap: true,
+                                      gridDelegate:
+                                        //   SliverGridDelegateWithFixedCrossAxisCount(
+                                        // crossAxisCount: ScreenUtil().screenWidth >
+                                        //         ScreenUtil().setWidth(600)
+                                        //     ? 5
+                                        //     : 3,
+                                       const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                                       
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                                                       
+                                          return GestureDetector(
+                                            onTap: () {
+                                              showModalBottomSheet(
+                                                context: context,
+                                                shape: const RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.vertical(
+                                                      top: Radius.circular(20)),
+                                                ),
+                                                builder: (BuildContext context) {
+                                                  return ImageTextCard( 
+imagePath:state.categoryProductList[index].thumbnail_image_url ,
+name: state.categoryProductList[index].name,
+price: state.categoryProductList[index].salePrice,
+productsCount: 0,
+stock:state.categoryProductList[index].stockStatus,
+isGreen:'',
+                                                  );
+                                                },
+                                              );
+                                            
+                                         
+                                         
+
+},
+);
+}
+),
+)
                           ],//column
-                );
-             
-             
+                );           
 }return Container();
 
               },
@@ -356,3 +271,65 @@ if (state is GetCategoryLoading ) {
     );
   }
 }
+
+
+
+// return Container(
+//                                                     decoration: BoxDecoration(border: Border.all(color: Colors.black),),
+                                                   
+//                                                     child: Container(
+//                                                       padding: const EdgeInsets.all(20),
+//                                                       decoration: const BoxDecoration(
+//                                                         color: Colors.white,
+//                                                         borderRadius: BorderRadius.vertical(
+//                                                             top: Radius.circular(20),),
+//                                                       ),
+//                                                       child: Column(
+//                                                         // mainAxisSize: MainAxisSize.min //
+//                                                         crossAxisAlignment:
+//                                                             CrossAxisAlignment.center,
+//                                                         children: [
+                                            
+//                                                           Image.network(
+//                                                             "$imageAccess${state.categoryProductList[index].thumbnail_image_url}",
+//                                                             height: 100,
+//                                                             width: 100,
+//                                                             fit: BoxFit.contain,
+//                                                           ),
+//                                                           const SizedBox(height: 10),
+//                                                            Text(
+//                                                             state.categoryProductList[index].name,
+                                                         
+                                                 
+//                                                             style:const TextStyle(
+//                                                               fontWeight: FontWeight.bold,
+//                                                               fontSize: 16,
+//                                                             ),
+//                                                           ),
+//                                                           const SizedBox(height: 10),
+//                                                            Text(
+//                                                             'Price: ${state.categoryProductList[index].thumbnail_image_url} ر.ع.',
+                                               
+//                                                             style:const TextStyle(
+//                                                               fontWeight: FontWeight.bold,
+//                                                               fontSize: 16,
+//                                                             ),
+//                                                           ),
+//                                                           const SizedBox(height: 20),
+//                                                           ElevatedButton(
+//                                                             onPressed: () {
+//                                                               Navigator.of(context).pop();
+//                                                             },
+//                                                             style: ElevatedButton.styleFrom(
+//                                                               backgroundColor: Colors.green,
+//                                                             ),
+//                                                             child: const Text(
+//                                                               'Add to Cart',
+//                                                               style: TextStyle(
+//                                                                   color: Colors.white),
+//                                                             ),
+//                                                           ),
+//                                                         ],
+//                                                       ),
+//                                                     ),
+//                                                   );
