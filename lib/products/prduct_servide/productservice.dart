@@ -39,7 +39,7 @@ class ProductService {
 
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body)["data"] as List<dynamic>;
-        log(response.body); // Logging the response body as a string
+        // log(response.body); 
         final products = jsonData
             .map((productJson) => Product.fromJson(productJson))
             .toList();

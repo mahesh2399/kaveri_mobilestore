@@ -69,7 +69,7 @@ import 'package:kaveri/category/presentation/category.dart';
 import 'package:kaveri/constants/bottom_nav_bar.dart';
 import 'package:kaveri/screens/auth/login.dart';
 
-import 'package:kaveri/screens/cart.dart';
+import 'package:kaveri/cart/screen/cart.dart';
 
 import 'package:kaveri/screens/selectedcategory.dart';
 

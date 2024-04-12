@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaveri/brand/bloc/get_brands_bloc.dart';
+import 'package:kaveri/common/db_helper.dart';
 import 'package:kaveri/common/widgets/custom_container_widget.dart';
 import 'package:kaveri/constants/api_url.dart';
 import 'package:kaveri/products/bloc/getproduct_bloc.dart';
@@ -28,6 +29,7 @@ class _BrandScreenState extends State<BrandScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<GetBrandsBloc>(context).add(FetchBrandsEvent());
+  
     BlocProvider.of<GetproductBloc>(context).add(FetchProductsEvent());
   }
 
@@ -96,7 +98,13 @@ class _BrandScreenState extends State<BrandScreen> {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        final brand = state.brands[index];
+                                        print("${brand.id},saaasaas");
+
+                                          BlocProvider.of<GetBrandsBloc>(context).add(FetchbraprodcutEvent(brand.id));
+
+                                      },
                                       child: CustomContainer(
                                         child: Column(
                                           children: [
@@ -132,7 +140,10 @@ class _BrandScreenState extends State<BrandScreen> {
                         } else if (state is BrandsLoadFailure) {
                           log(state.error);
                           return Text('Failed to load brands: ${state.error}');
-                        } else {
+
+                        }
+                        
+                         else {
                           return Container();
                         }
                       },
@@ -267,14 +278,16 @@ class _BrandScreenState extends State<BrandScreen> {
               //   ),
               // ),
 
-
-
-               Padding(
+              Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10)),
                 child: BlocBuilder<GetproductBloc, GetproductState>(
                   builder: (context, state) {
                     if (state is ProductsLoaded) {
+
+
+
+
                       List<Product> filteredProducts = state.products
                           .where((product) => product.name
                               .toLowerCase()
@@ -302,6 +315,11 @@ class _BrandScreenState extends State<BrandScreen> {
                             final product = filteredProducts[index];
                             return GestureDetector(
                               onTap: () {
+                                //                               DatabaseHelper.instance.insertProduct(Pproduct(
+                                //   name: product.name,
+                                //   price: product.salePrice,
+                                // ));
+
                                 showModalBottomSheet(
                                   context: context,
                                   shape: const RoundedRectangleBorder(
@@ -327,16 +345,13 @@ class _BrandScreenState extends State<BrandScreen> {
                                           mainAxisSize: MainAxisSize.min,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
-
-
-
                                           children: [
-                                         Image.network(
-                                            "$imageAccess${product.thumbnail_image_url}",
-                                            height: 100,
-                                            width: 100,
-                                            fit: BoxFit.contain,
-                                          ),
+                                            Image.network(
+                                              "$imageAccess${product.thumbnail_image_url}",
+                                              height: 100,
+                                              width: 100,
+                                              fit: BoxFit.contain,
+                                            ),
                                             const SizedBox(height: 10),
                                             Text(
                                               // product.name,
@@ -369,9 +384,6 @@ class _BrandScreenState extends State<BrandScreen> {
                                               ),
                                             ),
                                           ],
-
-
-                                          
                                         ),
                                       ),
                                     );
@@ -383,7 +395,8 @@ class _BrandScreenState extends State<BrandScreen> {
                                 // width: ScreenUtil().setWidth(200),
                                 // height: ScreenUtil().setHeight(130),
                                 child: ImageTextCard(
-                                  imagePath:  "$imageAccess${product.thumbnail_image_url}",
+                                  imagePath:
+                                      "$imageAccess${product.thumbnail_image_url}",
                                   name: filteredProducts[index].name,
                                   price: filteredProducts[index].salePrice,
                                   stock: filteredProducts[index].stockStatus,
@@ -402,7 +415,137 @@ class _BrandScreenState extends State<BrandScreen> {
                       );
                     } else if (state is ProductsLoading) {
                       return const CircularProgressIndicator();
-                    } else if (state is ProductsLoadFailure) {
+                    } 
+
+                     else if (state is ProductsLoadeddState) {
+                     
+                      List<Product> filteredProducts = state.selectedbrandproducts
+                          .where((product) => product.name
+                              .toLowerCase()
+                              .contains(searchText.toLowerCase()))
+                          .toList();
+
+                      final itemCount = _showAllProducts
+                          ? filteredProducts.length
+                          : filteredProducts.length > 6
+                              ? 6
+                              : filteredProducts.length;
+
+                      return GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: ScreenUtil().screenWidth >
+                                  ScreenUtil().setWidth(600)
+                              ? 5
+                              : 3,
+                          childAspectRatio: 1,
+                          mainAxisSpacing: 10.h,
+                        ),
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          if (index < filteredProducts.length) {
+                            final product = filteredProducts[index];
+                            return GestureDetector(
+                              onTap: () {
+                                //                               DatabaseHelper.instance.insertProduct(Pproduct(
+                                //   name: product.name,
+                                //   price: product.salePrice,
+                                // ));
+
+                                showModalBottomSheet(
+                                  context: context,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20)),
+                                  ),
+                                  builder: (BuildContext context) {
+                                    return SizedBox(
+                                      // width:
+                                      //     MediaQuery.of(context).size.width *
+                                      //         0.9,
+                                      width: double.infinity,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(20),
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(20)),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Image.network(
+                                              "$imageAccess${product.thumbnail_image_url}",
+                                              height: 100,
+                                              width: 100,
+                                              fit: BoxFit.contain,
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              // product.name,
+                                              'Product Name: ${product.name}',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              'Price: ${product.salePrice} ر.ع.',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 20),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.green,
+                                              ),
+                                              child: const Text(
+                                                'Add to Cart',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                color: Colors.white,
+                                // width: ScreenUtil().setWidth(200),
+                                // height: ScreenUtil().setHeight(130),
+                                child: ImageTextCard(
+                                  imagePath:
+                                      "$imageAccess${product.thumbnail_image_url}",
+                                  name: filteredProducts[index].name,
+                                  price: filteredProducts[index].salePrice,
+                                  stock: filteredProducts[index].stockStatus,
+                                  isGreen: filteredProducts[index].stockStatus,
+                                  productsCount:
+                                      filteredProducts[index].productsCount,
+                                ),
+                              ),
+                            );
+                          } else {
+                            return const SizedBox.shrink();
+                          }
+                        },
+                        itemCount: itemCount,
+                        shrinkWrap: true,
+                      );
+                    
+                    } 
+                    
+                    else if (state is ProductsLoadFailure) {
                       log(state.error);
                       return Text('Failed to load products: ${state.error}');
                     } else {

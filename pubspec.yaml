@@ -25,6 +25,8 @@ dependencies:
   shimmer: ^3.0.0
   flutter_localizations:
     sdk: flutter
+  sqflite: ^2.3.2
+  shared_preferences: ^2.2.3
   
 
 dev_dependencies:

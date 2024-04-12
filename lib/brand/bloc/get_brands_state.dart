@@ -19,3 +19,17 @@ class BrandsLoadFailure extends GetBrandsState {
 
   BrandsLoadFailure(this.error);
 }
+
+
+
+
+
+// .....
+
+
+class ProductsLoadeddState extends GetBrandsState {
+  final List<Product> selectedbrandproducts;
+
+  ProductsLoadeddState(this.selectedbrandproducts);
+}
+
