@@ -23,7 +23,7 @@ class GetCategoryBloc extends Bloc<GetCategoryEvent, GetCategoryState> {
             await categoryService.fetchCategories();
             final productsList = await ProductService()
           .fetchProducts();
-        emit(GetCategoryLoaded(categories,productsList));
+        emit(GetCategoryLoaded(category: categories,categoryProductList: productsList));
       } catch (e) {
         emit(GetCategoryLoadFailure('Failed to fetch categories: $e'));
       }

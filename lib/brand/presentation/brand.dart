@@ -280,7 +280,7 @@ class _BrandScreenState extends State<BrandScreen> {
                               .toLowerCase()
                               .contains(searchText.toLowerCase(),),)
                           .toList();
-
+                     log("$filteredProducts consoledData");
                       final itemCount = _showAllProducts
                           ? filteredProducts.length
                           : filteredProducts.length > 6
@@ -296,7 +296,7 @@ class _BrandScreenState extends State<BrandScreen> {
                           childAspectRatio: 1,
                           mainAxisSpacing: 10.h,
                         ),
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           if (index < filteredProducts.length) {
                             final product = filteredProducts[index];
@@ -310,11 +310,13 @@ class _BrandScreenState extends State<BrandScreen> {
                                   ),
                                   builder: (BuildContext context) {
                                     return SizedBox(
-                                      // width:
-                                      //     MediaQuery.of(context).size.width *
-                                      //         0.9,
+                                     
+                                     
+
+                              
                                       width: double.infinity,
                                       child: Container(
+                                        
                                         padding: const EdgeInsets.all(20),
                                         decoration: const BoxDecoration(
                                           color: Colors.white,

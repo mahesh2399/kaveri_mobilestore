@@ -15,7 +15,9 @@ class GetCategoryLoaded extends GetCategoryState {
   final List<Category> category;
   final   List<Product> categoryProductList;
 
-  const GetCategoryLoaded(this.category,this.categoryProductList);
+  const GetCategoryLoaded({required this.category,required this.categoryProductList});
+    @override
+  List<Object> get props => [category , categoryProductList];
 }
 
 class GetCategoryLoadFailure extends GetCategoryState {
