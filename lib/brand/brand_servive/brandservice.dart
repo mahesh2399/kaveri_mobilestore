@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:kaveri/brand/brand)_model/brand_model.dart';
 import 'package:kaveri/constants/api_url.dart';
+import 'package:kaveri/products/product_model/product_model.dart';
 
 class BrandService {
   // Future<List<Brand>> fetchBrands() async {
@@ -23,11 +24,36 @@ class BrandService {
 
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body)["data"] as List<dynamic>;
-        log(response.body);
+        // log(response.body);
         final brand =
             jsonData.map((brandJson) => Brand.fromJson(brandJson)).toList();
-// rand image is not comming 
+// rand image is not comming
         return brand;
+      } else {
+        throw Exception('Failed to load products: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      throw Exception('Failed to load products: $e');
+    }
+  }
+
+// product by brand
+  Future<List<Product>> fetchProductByBrand(String brandId) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$kbaseUrl/admin/getpbrands'),
+        body: jsonEncode({'brandId': brandId}),
+      );
+
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body)["data"] as List<dynamic>;
+        log(response.body);
+
+        final productByBrand = jsonData.map((data) {
+          return Product.fromJson(data);
+        }).toList();
+
+        return productByBrand;
       } else {
         throw Exception('Failed to load products: ${response.reasonPhrase}');
       }
