@@ -7,8 +7,14 @@ class FetchCategoryEvent extends GetCategoryEvent {
   FetchCategoryEvent();
 }
 
-class GetCategoryFetchProductsEvent extends GetCategoryEvent {
- 
+class GetProductsEvent extends GetCategoryEvent {
+ final BuildContext context;
 
-  GetCategoryFetchProductsEvent();
+  GetProductsEvent(this.context);
+}
+
+class GetCategoryFetchProductsEvent extends GetCategoryEvent {
+ final dynamic categoryId;
+
+  GetCategoryFetchProductsEvent(this.categoryId);
 }

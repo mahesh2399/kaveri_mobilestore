@@ -9,7 +9,7 @@ class FetchBrandsEvent extends GetBrandsEvent {
 }
 
 
-class FetchbraprodcutEvent extends GetBrandsEvent {
-  final brandId;
-  FetchbraprodcutEvent(this.brandId);
-}
+// class FetchbraprodcutEvent extends GetBrandsEvent {
+//   final brandId;
+//   FetchbraprodcutEvent(this.brandId);
+// }

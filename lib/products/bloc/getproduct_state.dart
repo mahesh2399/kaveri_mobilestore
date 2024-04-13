@@ -17,3 +17,9 @@ class ProductsLoaded extends GetproductState {
 
   ProductsLoadFailure({required this.error});
 }
+
+ final class ProductSelectBrandState extends GetproductState {
+  final List<Product> productsData;
+
+  ProductSelectBrandState({required this.productsData});
+}

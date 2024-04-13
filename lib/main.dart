@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             create: (context) => GetBrandsBloc(BrandService()),
           ),
           BlocProvider<GetproductBloc>(
-            create: (context) => GetproductBloc(ProductService()),
+            create: (context) => GetproductBloc(ProductService(),BrandService()),
           ),
           BlocProvider<LoginBloc>(
             create: (context) => LoginBloc(LoginService()),

@@ -27,9 +27,9 @@ class BrandsLoadFailure extends GetBrandsState {
 // .....
 
 
-class ProductsLoadeddState extends GetBrandsState {
-  final List<Product> selectedbrandproducts;
+// class BrandsGetByIdState extends GetBrandsState {
+//   final List<Product> selectedbrandproducts;
 
-  ProductsLoadeddState(this.selectedbrandproducts);
-}
+//   BrandsGetByIdState(this.selectedbrandproducts);
+// }
 

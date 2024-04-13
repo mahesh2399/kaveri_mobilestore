@@ -13,11 +13,18 @@ class GetCategoryLoading extends GetCategoryState {}
 
 class GetCategoryLoaded extends GetCategoryState {
   final List<Category> category;
+ 
+
+  const GetCategoryLoaded({required this.category,});
+  //   @override
+  // List<Object> get props => [category , categoryProductList];
+}
+class GetCategoryLoaded2State extends GetCategoryState {
   final   List<Product> categoryProductList;
 
-  const GetCategoryLoaded({required this.category,required this.categoryProductList});
-    @override
-  List<Object> get props => [category , categoryProductList];
+  const GetCategoryLoaded2State({required this.categoryProductList});
+  //   @override
+  // List<Object> get props => [category , categoryProductList];
 }
 
 class GetCategoryLoadFailure extends GetCategoryState {
@@ -27,10 +34,9 @@ class GetCategoryLoadFailure extends GetCategoryState {
 }
 
 class GetCategoryProductsLoadingState extends GetCategoryState {}
-// class GetCategoryProductsLoadedState extends GetCategoryState {
-//  final   List<Product> categoryProductList;
-//   final List<Category> category;
 
 
-//   const GetCategoryProductsLoadedState({required this.categoryProductList,required this.category});
-// }
+class GetCategorybyIdState extends GetCategoryState{
+  final List<Product> categoryProductList;
+  const GetCategorybyIdState({required this.categoryProductList});
+}

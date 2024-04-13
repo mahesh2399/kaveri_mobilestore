@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kaveri/constants/api_url.dart';
+
 
 class ImageTextCard extends StatelessWidget {
   final String imagePath;
@@ -13,7 +11,7 @@ class ImageTextCard extends StatelessWidget {
 
   final String isGreen;
 
-  const ImageTextCard({
+  const ImageTextCard({super.key, 
     required this.imagePath,
     required this.name,
     required this.price,
@@ -42,7 +40,7 @@ class ImageTextCard extends StatelessWidget {
       padding: const EdgeInsets.all(4),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Color.fromARGB(255, 228, 228, 228)),
+          border: Border.all(color: const Color.fromARGB(255, 228, 228, 228)),
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: Card(
@@ -58,12 +56,12 @@ class ImageTextCard extends StatelessWidget {
                 //   fit: BoxFit.cover,
                 // ),
 
-                                     child: Image.network(
-                                            imagePath,
-                                            height: 100,
-                                            width: 100,
-                                            fit: BoxFit.contain,
-                                          ),
+ child: Image.network(
+  imagePath,
+  height: 100,
+ width: 100,
+   fit: BoxFit.contain,
+ ),
 
               ),
               // SizedBox(height: 3.h),

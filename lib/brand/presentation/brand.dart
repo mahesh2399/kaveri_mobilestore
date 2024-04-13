@@ -3,15 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaveri/brand/bloc/get_brands_bloc.dart';
-import 'package:kaveri/common/db_helper.dart';
+import 'package:kaveri/category/model/cateogyr_product_model.dart';
 import 'package:kaveri/common/widgets/custom_container_widget.dart';
 import 'package:kaveri/constants/api_url.dart';
 import 'package:kaveri/products/bloc/getproduct_bloc.dart';
 import 'package:kaveri/products/product_model/product_model.dart';
 import 'package:kaveri/common/card_product/card.dart';
-
 import 'package:kaveri/common/header.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kaveri/constants/custom_colorcode.dart';
 
@@ -102,7 +100,7 @@ class _BrandScreenState extends State<BrandScreen> {
                                         final brand = state.brands[index];
                                         print("${brand.id},saaasaas");
 
-                                          BlocProvider.of<GetBrandsBloc>(context).add(FetchbraprodcutEvent(brand.id));
+                                          BlocProvider.of<GetproductBloc>(context).add(FetchProductSelectEvent(brandId:brand.id, ));
 
                                       },
                                       child: CustomContainer(
@@ -130,7 +128,7 @@ class _BrandScreenState extends State<BrandScreen> {
                                     ),
                                   );
                                 } else {
-                                  return SizedBox.shrink();
+                                  return const SizedBox.shrink();
                                 }
                               },
                             ),
@@ -204,91 +202,14 @@ class _BrandScreenState extends State<BrandScreen> {
                 ),
               ),
               SizedBox(height: ScreenUtil().setHeight(20)),
-              // Padding(
-              //   padding:
-              //       EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10)),
-              //   child: BlocBuilder<GetproductBloc, GetproductState>(
-              //     builder: (context, state) {
-              //       if (state is ProductsLoaded) {
-              //         List<Product> filteredProducts = state.products
-              //             .where((product) => product.name
-              //                 .toLowerCase()
-              //                 .contains(searchText.toLowerCase()))
-              //             .toList();
-
-              //         final itemCount = _showAllProducts
-              //             ? filteredProducts.length
-              //             : filteredProducts.length > 6
-              //                 ? 6
-              //                 : filteredProducts.length;
-
-              //         return GridView.builder(
-              //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //             crossAxisCount: ScreenUtil().screenWidth >
-              //                     ScreenUtil().setWidth(600)
-              //                 ? 5
-              //                 : 3,
-              //             childAspectRatio: 1,
-              //             mainAxisSpacing: 10.h,
-              //           ),
-              //           physics: NeverScrollableScrollPhysics(),
-              //           itemBuilder: (context, index) {
-              //             if (index < filteredProducts.length) {
-              //               return Padding(
-              //                 padding:const  EdgeInsets.symmetric(),
-              //                 child: Container(
-              //                     // color: Colors.white,
-              //                     // child:
-
-              //                         //     ImageTextCard(
-              //                         //   imagePath: 'assets/network.jpg',
-              //                         //   name: state.products[index].name,
-              //                         //   price: state.products[index].salePrice,
-
-              //                         // ),
-              //                     //     ImageTextCard(
-              //                     //   imagePath: "$imageAccess${filteredProducts.thumbnail_image_url}",
-              //                     //   name: filteredProducts[index].name,
-              //                     //   price: filteredProducts[index].salePrice,
-              //                     //   stock: filteredProducts[index].stockStatus,
-              //                     //   isGreen:
-              //                     //       filteredProducts[index].stockStatus,
-              //                     //   productsCount:
-              //                     //       filteredProducts[index].productsCount,
-              //                     // )
-              //                     )
-              //                     ,
-              //               );
-              //             } else {
-              //               return const SizedBox.shrink();
-              //             }
-              //           },
-              //           itemCount: itemCount,
-              //           shrinkWrap: true,
-              //         );
-              //       } else if (state is ProductsLoading) {
-              //         return const CircularProgressIndicator();
-              //       } else if (state is ProductsLoadFailure) {
-              //         log(state.error);
-              //         return Text('Failed to load products: ${state.error}');
-              //       } else {
-              //         return Container();
-              //       }
-              //     },
-              //   ),
-              // ),
-
+              
               Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10)),
                 child: BlocBuilder<GetproductBloc, GetproductState>(
                   builder: (context, state) {
                     if (state is ProductsLoaded) {
-
-
-
-
-                      List<Product> filteredProducts = state.products
+           List<Product> filteredProducts = state.products
                           .where((product) => product.name
                               .toLowerCase()
                               .contains(searchText.toLowerCase(),),)
@@ -315,10 +236,7 @@ class _BrandScreenState extends State<BrandScreen> {
                             final product = filteredProducts[index];
                             return GestureDetector(
                               onTap: () {
-                                //                               DatabaseHelper.instance.insertProduct(Pproduct(
-                                //   name: product.name,
-                                //   price: product.salePrice,
-                                // ));
+                              
 
                                 showModalBottomSheet(
                                   context: context,
@@ -417,9 +335,9 @@ class _BrandScreenState extends State<BrandScreen> {
                       return const CircularProgressIndicator();
                     } 
 
-                     else if (state is ProductsLoadeddState) {
+                     else if (state is ProductSelectBrandState) {
                      
-                      List<Product> filteredProducts = state.selectedbrandproducts
+                      List<Product> filteredProducts = state.productsData
                           .where((product) => product.name
                               .toLowerCase()
                               .contains(searchText.toLowerCase()))
@@ -440,16 +358,13 @@ class _BrandScreenState extends State<BrandScreen> {
                           childAspectRatio: 1,
                           mainAxisSpacing: 10.h,
                         ),
-                        physics: NeverScrollableScrollPhysics(),
+                        physics:const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           if (index < filteredProducts.length) {
                             final product = filteredProducts[index];
                             return GestureDetector(
                               onTap: () {
-                                //                               DatabaseHelper.instance.insertProduct(Pproduct(
-                                //   name: product.name,
-                                //   price: product.salePrice,
-                                // ));
+                                                              
 
                                 showModalBottomSheet(
                                   context: context,
