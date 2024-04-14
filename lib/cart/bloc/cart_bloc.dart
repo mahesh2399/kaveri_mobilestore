@@ -11,14 +11,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartEvent>((event, emit) {
       // TODO: implement event handler
     });
+      List<ProductsForCart> productList=[];
 
     on<AddtoCartPageEvent>((event, emit) async{
     emit(CartLoading());
     try {
-     if(state is CartLoaded){ CartLoaded loadedState = state as CartLoaded;
-      List<Product> productList=List.from(loadedState.productList);
+    //  if(state is CartLoaded){ //CartLoaded loadedState = state as CartLoaded;
       productList.add(event.product);
-      emit(CartLoaded(productList));}
+      emit(CartLoaded(productList));//}
        
     } catch (e) {
       print(e); 

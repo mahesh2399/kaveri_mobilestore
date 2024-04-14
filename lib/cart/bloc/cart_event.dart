@@ -8,7 +8,7 @@ class TriggerCartEventEvent extends CartEvent {
   TriggerCartEventEvent();
 }
 class AddtoCartPageEvent extends CartEvent{
-  final Product product;
+  final ProductsForCart product;
    AddtoCartPageEvent(this.product);
 }
 class RemoveFromCartEvent extends  CartEvent{
