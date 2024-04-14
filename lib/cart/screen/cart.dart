@@ -90,9 +90,9 @@ class _CartScreenState extends State<CartScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     buildContainer(
-                        0, Icons.verified_user, 'Existing', 'customer'),
-                    buildContainer(1, Icons.shopping_cart, 'Shopping', 'cart'),
-                    buildContainer(2, Icons.favorite, 'Favorite', 'item'),
+                        0, Icons.verified_user, 'Existing', 'Customer'),
+                    buildContainer(1, Icons.person_add, 'New', 'Customer'),
+                    buildContainer(2, Icons.person, 'Guest', 'Customer'),
                   ],
                 ),
                 const SizedBox(height: 20),
@@ -237,20 +237,7 @@ class _CartScreenState extends State<CartScreen> {
                                         ],
                                       ),
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Additional Discount',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                   
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
@@ -278,6 +265,20 @@ class _CartScreenState extends State<CartScreen> {
                                         ],
                                       ),
                                     ),
+                                    //  const Padding(
+                                    //   padding: EdgeInsets.all(8.0),
+                                    //   child: Row(
+                                    //     mainAxisAlignment:
+                                    //         MainAxisAlignment.spaceBetween,
+                                    //     children: [
+                                    //       Text(
+                                    //         'Additional Discount',
+                                    //         style: TextStyle(
+                                    //             fontWeight: FontWeight.bold),
+                                    //       ),
+                                    //     ],
+                                    //   ),
+                                    // ),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
@@ -477,20 +478,7 @@ class _CartScreenState extends State<CartScreen> {
                                         ],
                                       ),
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Additional Discount',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                    
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
@@ -514,6 +502,20 @@ class _CartScreenState extends State<CartScreen> {
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Additional Discount',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ],
                                       ),
