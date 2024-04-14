@@ -18,7 +18,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     try {
     //  if(state is CartLoaded){ //CartLoaded loadedState = state as CartLoaded;
       productList.add(event.product);
-      emit(CartLoaded(productList));//}
+      emit(CartLoaded(CartModel(productsList: [], userId: 'userId', subTotal: 0, tax: 0, grandTotal: 0)));//}
        
     } catch (e) {
       print(e); 

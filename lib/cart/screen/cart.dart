@@ -1,10 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kaveri/cart/bloc/cart_bloc.dart';
 import 'package:kaveri/common/card_product/card.dart';
 import 'package:kaveri/common/header.dart';
 import 'package:kaveri/constants/item_in_cart.dart';
+import 'package:kaveri/products/product_model/product_model.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -48,7 +51,7 @@ class _CartScreenState extends State<CartScreen> {
         child: Container(
           width: 75.w,
           height: 27,
-          margin: const EdgeInsets.all(8),
+          margin: EdgeInsets.all(8),
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.green,
@@ -70,6 +73,8 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
+  CartModel cartData = CartModel(
+      productsList: [], userId: '', subTotal: 0, tax: 0, grandTotal: 0);
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -78,7 +83,7 @@ class _CartScreenState extends State<CartScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
+          physics: AlwaysScrollableScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -89,9 +94,17 @@ class _CartScreenState extends State<CartScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     buildContainer(
-                        0, Icons.verified_user, 'Existing', 'customer'),
-                    buildContainer(1, Icons.shopping_cart, 'Shopping', 'cart'),
-                    buildContainer(2, Icons.favorite, 'Favorite', 'item'),
+                        index: 0,
+                        icon: CupertinoIcons.person_2_fill,
+                        title1: 'Existing \nCustomer'),
+                    buildContainer(
+                        index: 1,
+                        icon: CupertinoIcons.person_solid,
+                        title1: 'New \nCustomer'),
+                    buildContainer(
+                        index: 2,
+                        icon: CupertinoIcons.person_circle_fill,
+                        title1: 'Guest \nCustomer'),
                   ],
                 ),
                 const SizedBox(height: 20),
@@ -128,29 +141,7 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         ),
                       ),
-
-//button goes heare
                       const SizedBox(height: 10),
-                      Column(
-                        children: [
-                          Container(
-                            color: Colors.green,
-                            width: double.infinity,
-                            child: Table(
-                              defaultColumnWidth: const IntrinsicColumnWidth(),
-                              children: [
-                                _buildTableCell(
-                                    ['Item', 'Qty', 'Price', 'Action']),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 206, 255, 208),
-                            height: ScreenUtil().setHeight(400),
-                            child: itemCartCard(),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 ),
@@ -162,234 +153,11 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Column itemCartCard() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        BlocConsumer<CartBloc, CartState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
-          builder: (context, state) {
-            if (state is CartLoaded) {
-              // return Container(
-              //   height: 300,
-              //   child: ListView.builder(
-              //     itemCount: 1,
-              //     shrinkWrap: true,
-              //     itemBuilder: (context, index) {
-              //       // return ItemsList(itemName: itemName, widgetD: widgetD, price: price);
-              //     },
-              //   ),
-              // );
-            }
-            return Container();
-          },
-        ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'SubTotal',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                '100rs',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Tax',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                '100rs',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Shipping Charge',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: Colors.green), // Border color
-                ),
-                child: const TextField(
-                  decoration: InputDecoration(),
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Additional Discount',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: SizedBox(
-                  height: 45,
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Colors.green,
-                      ),
-                    ),
-                    child: const TextField(
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(bottom: 6),
-                        hintText: 'Enter value',
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: SizedBox(
-                  height: 45,
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.green,
-                        width: 2,
-                      ),
-                    ),
-                    child: DropdownButton<String>(
-                      value: dropdownValue,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownValue = newValue!;
-                        });
-                      },
-                      items: <String>['One', 'Two', 'Three', 'Four']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        // Padding(
-        //   padding: const EdgeInsets.all(8.0),
-        //   child:
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Total',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.green), // Border color
-                ),
-                child: const Text(
-                  '200',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        Center(
-          child: Align(
-            alignment: Alignment.center,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                buildCell('Cash'),
-              ],
-            ),
-          ),
-          // ),
-        ),
-        SizedBox(
-          height: 5.h,
-        ),
-        Center(
-          child: Align(
-            alignment: Alignment.center,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: 250.w,
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      color: Colors.green,
-                      // borderRadius:
-                      //     BorderRadius.circular(8),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Complete Order',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget buildContainer(
-      int index, IconData icon, String title1, String title2) {
+  Widget buildContainer({
+    required int index,
+    required IconData icon,
+    required String title1,
+  }) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -412,33 +180,29 @@ class _CartScreenState extends State<CartScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  icon,
-                  color: isSelected[index]
-                      ? Colors.white
-                      : const Color.fromRGBO(15, 117, 0, 1),
-                  size: ScreenUtil().setWidth(20),
-                ),
-                SizedBox(height: ScreenUtil().setHeight(2)),
-                Text(
-                  title1,
-                  style: TextStyle(
+                Expanded(
+                  child: Icon(
+                    icon,
                     color: isSelected[index]
                         ? Colors.white
                         : const Color.fromRGBO(15, 117, 0, 1),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.sp,
+                    size: ScreenUtil().setWidth(20),
                   ),
                 ),
-                SizedBox(height: ScreenUtil().setHeight(1)),
-                Text(
-                  title2,
-                  style: TextStyle(
-                    color: isSelected[index]
-                        ? Colors.white
-                        : const Color.fromRGBO(15, 117, 0, 1),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.sp,
+                SizedBox(height: ScreenUtil().setHeight(2)),
+                Expanded(
+                  child: FittedBox(
+                    child: Text(
+                      title1,
+                      style: TextStyle(
+                        color: isSelected[index]
+                            ? Colors.white
+                            : const Color.fromRGBO(15, 117, 0, 1),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 10.sp,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ],
@@ -459,12 +223,12 @@ class _CartScreenState extends State<CartScreen> {
               border: Border.all(color: Colors.white),
             ),
             child: Container(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
                   text,
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ),
@@ -563,7 +327,7 @@ class _CartScreenState extends State<CartScreen> {
                   icon,
                   color: isSelected[index]
                       ? Colors.white
-                      : const Color.fromRGBO(15, 117, 0, 1),
+                      : Color.fromRGBO(15, 117, 0, 1),
                   size: ScreenUtil().setWidth(20),
                 ),
                 SizedBox(height: ScreenUtil().setHeight(2)),
@@ -572,7 +336,7 @@ class _CartScreenState extends State<CartScreen> {
                   style: TextStyle(
                     color: isSelected[index]
                         ? Colors.white
-                        : const Color.fromRGBO(15, 117, 0, 1),
+                        : Color.fromRGBO(15, 117, 0, 1),
                     fontWeight: FontWeight.bold,
                     fontSize: 10.sp, // Adjusted font size
                   ),
@@ -583,7 +347,7 @@ class _CartScreenState extends State<CartScreen> {
                   style: TextStyle(
                     color: isSelected[index]
                         ? Colors.white
-                        : const Color.fromRGBO(15, 117, 0, 1),
+                        : Color.fromRGBO(15, 117, 0, 1),
                     fontWeight: FontWeight.bold,
                     fontSize: 10.sp, // Adjusted font size
                   ),

@@ -64,7 +64,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kaveri/brand/presentation/brand.dart';
+import 'package:kaveri/brand/presentation/brand_screen.dart';
 import 'package:kaveri/category/presentation/category.dart';
 import 'package:kaveri/constants/bottom_nav_bar.dart';
 import 'package:kaveri/screens/auth/login.dart';
