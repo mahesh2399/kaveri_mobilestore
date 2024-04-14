@@ -170,7 +170,7 @@ class _CartScreenState extends State<CartScreen> {
                                   shrinkWrap: true,
                                   itemCount: state.productList.length,
                                   itemBuilder: (context, index) {
-                                  return ItemsList(itemName: state.productList[index].name, widgetD: buildQuantityRow(), price: state.productList[index].salePrice??'0');
+                                  return ItemsList(itemName: state.productList[index].name, widgetD: buildQuantityRow(), price: state.productList[index].price.toString() );
                                 },),
                                     const Padding(
                                       padding: EdgeInsets.all(8.0),

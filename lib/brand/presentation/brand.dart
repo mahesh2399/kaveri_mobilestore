@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaveri/brand/bloc/get_brands_bloc.dart';
+import 'package:kaveri/cart/bloc/cart_bloc.dart';
 import 'package:kaveri/category/model/cateogyr_product_model.dart';
 import 'package:kaveri/common/widgets/custom_container_widget.dart';
 import 'package:kaveri/constants/api_url.dart';
@@ -27,7 +28,7 @@ class _BrandScreenState extends State<BrandScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<GetBrandsBloc>(context).add(FetchBrandsEvent());
-  
+
     BlocProvider.of<GetproductBloc>(context).add(FetchProductsEvent());
   }
 
@@ -39,10 +40,13 @@ class _BrandScreenState extends State<BrandScreen> {
     });
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
+
   String searchText = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldkey,
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -100,8 +104,10 @@ class _BrandScreenState extends State<BrandScreen> {
                                         final brand = state.brands[index];
                                         print("${brand.id},saaasaas");
 
-                                          BlocProvider.of<GetproductBloc>(context).add(FetchProductSelectEvent(brandId:brand.id, ));
-
+                                        BlocProvider.of<GetproductBloc>(context)
+                                            .add(FetchProductSelectEvent(
+                                          brandId: brand.id,
+                                        ));
                                       },
                                       child: CustomContainer(
                                         child: Column(
@@ -138,10 +144,7 @@ class _BrandScreenState extends State<BrandScreen> {
                         } else if (state is BrandsLoadFailure) {
                           log(state.error);
                           return Text('Failed to load brands: ${state.error}');
-
-                        }
-                        
-                         else {
+                        } else {
                           return Container();
                         }
                       },
@@ -202,19 +205,21 @@ class _BrandScreenState extends State<BrandScreen> {
                 ),
               ),
               SizedBox(height: ScreenUtil().setHeight(20)),
-              
+
               Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10)),
                 child: BlocBuilder<GetproductBloc, GetproductState>(
                   builder: (context, state) {
                     if (state is ProductsLoaded) {
-           List<Product> filteredProducts = state.products
-                          .where((product) => product.name
-                              .toLowerCase()
-                              .contains(searchText.toLowerCase(),),)
+                      List<Product> filteredProducts = state.products
+                          .where(
+                            (product) => product.name.toLowerCase().contains(
+                                  searchText.toLowerCase(),
+                                ),
+                          )
                           .toList();
-                     log("$filteredProducts consoledData");
+                      log("$filteredProducts consoledData");
                       final itemCount = _showAllProducts
                           ? filteredProducts.length
                           : filteredProducts.length > 6
@@ -236,8 +241,6 @@ class _BrandScreenState extends State<BrandScreen> {
                             final product = filteredProducts[index];
                             return GestureDetector(
                               onTap: () {
-                              
-
                                 showModalBottomSheet(
                                   context: context,
                                   shape: const RoundedRectangleBorder(
@@ -246,13 +249,8 @@ class _BrandScreenState extends State<BrandScreen> {
                                   ),
                                   builder: (BuildContext context) {
                                     return SizedBox(
-                                     
-                                     
-
-                              
                                       width: double.infinity,
                                       child: Container(
-                                        
                                         padding: const EdgeInsets.all(20),
                                         decoration: const BoxDecoration(
                                           color: Colors.white,
@@ -290,6 +288,23 @@ class _BrandScreenState extends State<BrandScreen> {
                                             const SizedBox(height: 20),
                                             ElevatedButton(
                                               onPressed: () {
+                                                _scaffoldkey.currentContext!
+                                                    .read<CartBloc>()
+                                                    .add(
+                                                      AddtoCartPageEvent(
+                                                          ProductsForCart(
+                                                        name: product.name,
+                                                        imageUrl: product
+                                                            .thumbnail_image_url,
+                                                        price:
+                                                            product.salePrice,
+                                                        stockQuantity: product
+                                                            .productsCount,
+                                                        discount:
+                                                            product.discount,
+                                                        tax: 0,
+                                                      )),
+                                                    );
                                                 Navigator.of(context).pop();
                                               },
                                               style: ElevatedButton.styleFrom(
@@ -316,7 +331,9 @@ class _BrandScreenState extends State<BrandScreen> {
                                   imagePath:
                                       "$imageAccess${product.thumbnail_image_url}",
                                   name: filteredProducts[index].name,
-                                  price: filteredProducts[index].salePrice??'',
+                                  price: filteredProducts[index]
+                                      .salePrice
+                                      .toString(),
                                   stock: filteredProducts[index].stockStatus,
                                   isGreen: filteredProducts[index].stockStatus,
                                   productsCount:
@@ -333,10 +350,7 @@ class _BrandScreenState extends State<BrandScreen> {
                       );
                     } else if (state is ProductsLoading) {
                       return const CircularProgressIndicator();
-                    } 
-
-                     else if (state is ProductSelectBrandState) {
-                     
+                    } else if (state is ProductSelectBrandState) {
                       List<Product> filteredProducts = state.productsData
                           .where((product) => product.name
                               .toLowerCase()
@@ -358,14 +372,12 @@ class _BrandScreenState extends State<BrandScreen> {
                           childAspectRatio: 1,
                           mainAxisSpacing: 10.h,
                         ),
-                        physics:const NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           if (index < filteredProducts.length) {
                             final product = filteredProducts[index];
                             return GestureDetector(
                               onTap: () {
-                                                              
-
                                 showModalBottomSheet(
                                   context: context,
                                   shape: const RoundedRectangleBorder(
@@ -416,6 +428,23 @@ class _BrandScreenState extends State<BrandScreen> {
                                             const SizedBox(height: 20),
                                             ElevatedButton(
                                               onPressed: () {
+                                                _scaffoldkey.currentContext!
+                                                    .read<CartBloc>()
+                                                    .add(
+                                                      AddtoCartPageEvent(
+                                                          ProductsForCart(
+                                                        name: product.name,
+                                                        imageUrl: product
+                                                            .thumbnail_image_url,
+                                                        price:
+                                                            product.salePrice,
+                                                        stockQuantity: product
+                                                            .productsCount,
+                                                        discount:
+                                                            product.discount,
+                                                        tax: 0,
+                                                      )),
+                                                    );
                                                 Navigator.of(context).pop();
                                               },
                                               style: ElevatedButton.styleFrom(
@@ -442,7 +471,9 @@ class _BrandScreenState extends State<BrandScreen> {
                                   imagePath:
                                       "$imageAccess${product.thumbnail_image_url}",
                                   name: filteredProducts[index].name,
-                                  price: filteredProducts[index].salePrice??'',
+                                  price: filteredProducts[index]
+                                      .salePrice
+                                      .toString(),
                                   stock: filteredProducts[index].stockStatus,
                                   isGreen: filteredProducts[index].stockStatus,
                                   productsCount:
@@ -457,12 +488,9 @@ class _BrandScreenState extends State<BrandScreen> {
                         itemCount: itemCount,
                         shrinkWrap: true,
                       );
-                    
-                    } 
-                    
-                    else if (state is ProductsLoadFailure) {
+                    } else if (state is ProductsLoadFailure) {
                       log(state.error);
-                      return Text('Failed to load products: ${state.error}');
+                      return const Text('Something went wrong');
                     } else {
                       return Container();
                     }

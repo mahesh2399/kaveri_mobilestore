@@ -67,12 +67,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
       },
     );
   }
-
+ final GlobalKey<ScaffoldState> _scaffoldkey =  GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: _handleRefresh,
       child: Scaffold(
+        key: _scaffoldkey,
         backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
@@ -162,9 +163,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       return const Center(child: CircularProgressIndicator());
                     } else if (state is GetCategoryLoaded2State) {
                       log('state is');
-                      return categoryAndProducts(state);
+                      return categoryAndProducts(state.categoryProductList);
                     } else if (state is GetCategorybyIdState) {
-                      return categoryAndProducts(state);
+                      return categoryAndProducts(state.categoryProductList);
                     }
                     return Container(
                       child: const Text(''),
@@ -179,7 +180,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-  Column categoryAndProducts(state) {
+  Column categoryAndProducts(List<Product> productsData) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -245,7 +246,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
-              itemCount: state.categoryProductList.length,
+              itemCount: productsData.length,
               shrinkWrap: true,
               gridDelegate:
                   //   SliverGridDelegateWithFixedCrossAxisCount(
@@ -283,7 +284,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Image.network(
-                                    "$imageAccess${state.categoryProductList[index].thumbnail_image_url}",
+                                    "$imageAccess${productsData[index].thumbnail_image_url}",
                                     height: 100,
                                     width: 100,
                                     fit: BoxFit.contain,
@@ -291,7 +292,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   const SizedBox(height: 10),
                                   Text(
                                     // product.name,
-                                    'Product Name: ${state.categoryProductList[index].name}',
+                                    'Product Name: ${productsData[index].name}',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
@@ -299,7 +300,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
-                                    'Price: ${state.categoryProductList[index].salePrice} ر.ع.',
+                                    'Price: ${productsData[index].salePrice} ر.ع.',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
@@ -308,29 +309,39 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   const SizedBox(height: 20),
                                   ElevatedButton(
                                     onPressed: () {
-                                      BlocProvider.of<CartBloc>(context).add(
-                                        AddtoCartPageEvent(
-                                          Product(
-                                            id: state
-                                                .categoryProductList[index].id,
-                                            name: state
-                                                .categoryProductList[index]
-                                                .name,
-                                            slug: [],
-                                            description: state
-                                                .categoryProductList[index]
-                                                .description,
-                                            productsCount: state
-                                                .categoryProductList[index]
-                                                .productsCount,
-                                            stockStatus: state
-                                                .categoryProductList[index]
-                                                .stockStatus,
-                                            salePrice: state
-                                                .categoryProductList[index]
-                                                .salePrice,
-                                          ),
-                                        ),
+                                      BlocProvider.of<CartBloc>(_scaffoldkey.currentContext!).add(
+                                        AddtoCartPageEvent(ProductsForCart(
+                                          name: productsData[index].name,
+                                          imageUrl: productsData[index]
+                                              .thumbnail_image_url,
+                                          price: productsData[index].salePrice,
+                                          stockQuantity:
+                                              productsData[index].productsCount,
+                                          discount:
+                                              productsData[index].discount,
+                                          tax: 0,
+                                        )
+                                            // Product(
+                                            //   id: state
+                                            //       .categoryProductList[index].id,
+                                            //   name: state
+                                            //       .categoryProductList[index]
+                                            //       .name,
+                                            //   slug: [],
+                                            //   description: state
+                                            //       .categoryProductList[index]
+                                            //       .description,
+                                            //   productsCount: state
+                                            //       .categoryProductList[index]
+                                            //       .productsCount,
+                                            //   stockStatus: state
+                                            //       .categoryProductList[index]
+                                            //       .stockStatus,
+                                            //   salePrice: state
+                                            //       .categoryProductList[index]
+                                            //       .salePrice,
+                                            // ),
+                                            ),
                                       );
 
                                       Navigator.of(context).pop();
@@ -354,13 +365,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       color: Colors.white,
                       child: ImageTextCard(
                         imagePath:
-                            "$imageAccess${state.categoryProductList[index].thumbnail_image_url}",
-                        name: state.categoryProductList[index].name,
-                        price: state.categoryProductList[index].salePrice,
-                        stock: state.categoryProductList[index].stockStatus,
-                        isGreen: state.categoryProductList[index].stockStatus,
-                        productsCount:
-                            state.categoryProductList[index].productsCount,
+                            "$imageAccess${productsData[index].thumbnail_image_url}",
+                        name: productsData[index].name,
+                        price: productsData[index].salePrice.toString(),
+                        stock: productsData[index].stockStatus,
+                        isGreen: productsData[index].stockStatus,
+                        productsCount: productsData[index].productsCount,
                       ),
                     ));
               }),

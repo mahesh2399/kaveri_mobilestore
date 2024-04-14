@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class Product {
   final String id;
   final String name;
@@ -8,9 +9,9 @@ class Product {
   final int? blogsCount;
   final int productsCount;
   final String? thumbnailImage;
-  final String? thumbnail_image_url;
-  final String? salePrice;
-  final String? discount;
+  final String thumbnail_image_url;
+  final int salePrice;
+  final int discount;
   final String? isFeatured;
   final String stockStatus;
   final Map<String, dynamic>? variations;
@@ -20,17 +21,17 @@ class Product {
     required this.name,
     required this.slug,
     required this.description,
-     this.createdAt,
-     this.updatedAt,
-     this.blogsCount,
+    this.createdAt,
+    this.updatedAt,
+    this.blogsCount,
     required this.productsCount,
-     this.thumbnailImage,
-     this.thumbnail_image_url,
-     this.salePrice,
-     this.discount,
-     this.isFeatured,
+    this.thumbnailImage,
+    required  this.thumbnail_image_url,
+    required  this.salePrice,
+    required this.discount,
+    this.isFeatured,
     required this.stockStatus,
-     this.variations,
+    this.variations,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -45,11 +46,42 @@ class Product {
       productsCount: json['products_count'] ?? 0,
       thumbnailImage: json['thumbnail_image'] ?? '',
       thumbnail_image_url: json['thumbnail_image_url'] ?? '',
-      salePrice: json['sale_price'] ?? '',
-      discount: json['discount'] ?? '',
+      salePrice: int.parse(json['sale_price'] ?? '0'),
+      discount: int.parse(json['discount'] ?? '0'),
       isFeatured: json['is_featured'] ?? '',
       stockStatus: json['stock_status'] ?? '',
       variations: json['variations'] ?? {},
     );
   }
+
+  @override
+  String toString() {
+    return 'Product(id: $id, name: $name, slug: $slug, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, blogsCount: $blogsCount, productsCount: $productsCount, thumbnailImage: $thumbnailImage, thumbnail_image_url: $thumbnail_image_url, salePrice: $salePrice, discount: $discount, isFeatured: $isFeatured, stockStatus: $stockStatus, variations: $variations)';
+  }
+}
+
+class ProductsForCart {
+  final String name;
+  final String imageUrl;
+  final int price;
+  final int stockQuantity;
+  final int discount;
+  final int tax;
+
+  ProductsForCart(
+      {required this.name,
+      required this.imageUrl,
+      required this.price,
+      required this.stockQuantity,
+      required this.discount,
+      required this.tax});
+}
+
+class CartModel {
+  final List<ProductsForCart> productsList;
+  final String userId;
+  final int subTotal;
+  final int tax;
+  final int grandTotal;
+  CartModel({required this.productsList, required this.userId, required this.subTotal, required this.tax, required this.grandTotal});
 }
