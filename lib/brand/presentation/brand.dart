@@ -316,7 +316,7 @@ class _BrandScreenState extends State<BrandScreen> {
                                   imagePath:
                                       "$imageAccess${product.thumbnail_image_url}",
                                   name: filteredProducts[index].name,
-                                  price: filteredProducts[index].salePrice,
+                                  price: filteredProducts[index].salePrice??'',
                                   stock: filteredProducts[index].stockStatus,
                                   isGreen: filteredProducts[index].stockStatus,
                                   productsCount:
@@ -442,7 +442,7 @@ class _BrandScreenState extends State<BrandScreen> {
                                   imagePath:
                                       "$imageAccess${product.thumbnail_image_url}",
                                   name: filteredProducts[index].name,
-                                  price: filteredProducts[index].salePrice,
+                                  price: filteredProducts[index].salePrice??'',
                                   stock: filteredProducts[index].stockStatus,
                                   isGreen: filteredProducts[index].stockStatus,
                                   productsCount:

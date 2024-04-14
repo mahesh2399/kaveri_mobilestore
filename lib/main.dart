@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kaveri/brand/bloc/get_brands_bloc.dart';
 import 'package:kaveri/brand/brand_servive/brandservice.dart';
+import 'package:kaveri/cart/bloc/cart_bloc.dart';
 import 'package:kaveri/category/bloc/get_category_bloc.dart';
 import 'package:kaveri/category/category_service/categoryservice.dart';
 import 'package:kaveri/login/bloc/login.service.dart';
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<GetCategoryBloc>(
             create: (context) => GetCategoryBloc(CategoryService()),
+          ),
+          BlocProvider<CartBloc>(
+            create: (context) => CartBloc(),
           ),
         ],
         child: MaterialApp.router(

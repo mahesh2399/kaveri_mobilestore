@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kaveri/cart/bloc/cart_bloc.dart';
 import 'package:kaveri/category/bloc/get_category_bloc.dart';
 import 'package:kaveri/category/category_service/categoryservice.dart';
 import 'package:kaveri/common/card_product/card.dart';
@@ -29,22 +30,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
     getCategories();
     // BlocProvider.of<GetCategoryBloc>(context).add(FetchCategoryEvent());
 
-
     BlocProvider.of<GetCategoryBloc>(context).add(GetProductsEvent(context));
-
-    
   }
-List<Category> productData = [];
+
+  List<Category> productData = [];
   String searchText = '';
   bool _showLess = false;
   bool _showAllProducts = false;
-  getCategories()async{
+  getCategories() async {
     final resut = await CategoryService().fetchCategories();
 
     setState(() {
       productData = resut;
     });
   }
+
   void toggleShowLess() {
     setState(() {
       _showLess = !_showLess;
@@ -60,7 +60,8 @@ List<Category> productData = [];
       ),
       () {
         // BlocProvider.of<GetCategoryBloc>(context).add(FetchCategoryEvent());
-    BlocProvider.of<GetCategoryBloc>(context).add(GetProductsEvent(context));
+        BlocProvider.of<GetCategoryBloc>(context)
+            .add(GetProductsEvent(context));
 
         // BlocProvider.of<GetproductBloc>(context).add(FetchProductsEvent());
       },
@@ -97,77 +98,72 @@ List<Category> productData = [];
                 ),
                 SizedBox(height: ScreenUtil().setHeight(20)),
                 SizedBox(
-                  width: double.infinity,
-                  height: 250.h,
-                  child: 
-             
+                    width: double.infinity,
+                    height: 250.h,
+                    child:
 
-                      // if (state is GetCategoryLoaded) {
-                         GridView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: productData.length,
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          crossAxisSpacing: 10,
-                          childAspectRatio: 1, // 1 / 0.6,
-                          mainAxisSpacing: 10,
-                        ),
-                        physics: const ScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                BlocProvider.of<GetCategoryBloc>(context).add(
-                                    GetCategoryFetchProductsEvent(
-                                        productData[index].id));
+                        // if (state is GetCategoryLoaded) {
+                        GridView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: productData.length,
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 200,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 1, // 1 / 0.6,
+                        mainAxisSpacing: 10,
+                      ),
+                      physics: const ScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              BlocProvider.of<GetCategoryBloc>(context).add(
+                                  GetCategoryFetchProductsEvent(
+                                      productData[index].id));
 
-                                log(productData[index].id);
-                              },
-                              child: CustomContainer(
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                      flex: 4,
-                                      child: Image.asset(
-                                        'assets/bucketfruits.png',
-                                        fit: BoxFit.fill,
-                                      ),
+                              log(productData[index].id);
+                            },
+                            child: CustomContainer(
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: Image.asset(
+                                      'assets/bucketfruits.png',
+                                      fit: BoxFit.fill,
                                     ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        productData[index].name,
-                                        style: TextStyle(fontSize: 10.sp),
-                                      ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      productData[index].name,
+                                      style: TextStyle(fontSize: 10.sp),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        },
-                      )
-                      // }
-                
-                    
-                ),
+                          ),
+                        );
+                      },
+                    )
+                    // }
+
+                    ),
                 BlocConsumer<GetCategoryBloc, GetCategoryState>(
                   listener: (context, state) {
                     // TODO: implement listener
                   },
                   builder: (context, state) {
-                    
                     if (state is GetCategoryProductsLoadingState) {
                       return const Center(child: CircularProgressIndicator());
-                    } 
-                    else if (state is GetCategoryLoaded2State) {
+                    } else if (state is GetCategoryLoaded2State) {
                       log('state is');
                       return categoryAndProducts(state);
-                    } 
-                    else if (state is GetCategorybyIdState) {
+                    } else if (state is GetCategorybyIdState) {
                       return categoryAndProducts(state);
                     }
                     return Container(
@@ -312,6 +308,31 @@ List<Category> productData = [];
                                   const SizedBox(height: 20),
                                   ElevatedButton(
                                     onPressed: () {
+                                      BlocProvider.of<CartBloc>(context).add(
+                                        AddtoCartPageEvent(
+                                          Product(
+                                            id: state
+                                                .categoryProductList[index].id,
+                                            name: state
+                                                .categoryProductList[index]
+                                                .name,
+                                            slug: [],
+                                            description: state
+                                                .categoryProductList[index]
+                                                .description,
+                                            productsCount: state
+                                                .categoryProductList[index]
+                                                .productsCount,
+                                            stockStatus: state
+                                                .categoryProductList[index]
+                                                .stockStatus,
+                                            salePrice: state
+                                                .categoryProductList[index]
+                                                .salePrice,
+                                          ),
+                                        ),
+                                      );
+
                                       Navigator.of(context).pop();
                                     },
                                     style: ElevatedButton.styleFrom(

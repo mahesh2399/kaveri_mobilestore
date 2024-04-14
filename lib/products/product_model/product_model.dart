@@ -3,34 +3,34 @@ class Product {
   final String name;
   final List<dynamic> slug;
   final String description;
-  final String createdAt;
-  final String updatedAt;
-  final int blogsCount;
+  final String? createdAt;
+  final String? updatedAt;
+  final int? blogsCount;
   final int productsCount;
-  final String thumbnailImage;
-  final String thumbnail_image_url;
-  final String salePrice;
-  final String discount;
-  final String isFeatured;
+  final String? thumbnailImage;
+  final String? thumbnail_image_url;
+  final String? salePrice;
+  final String? discount;
+  final String? isFeatured;
   final String stockStatus;
-  final Map<String, dynamic> variations;
+  final Map<String, dynamic>? variations;
 
   Product({
     required this.id,
     required this.name,
     required this.slug,
     required this.description,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.blogsCount,
+     this.createdAt,
+     this.updatedAt,
+     this.blogsCount,
     required this.productsCount,
-    required this.thumbnailImage,
-    required this.thumbnail_image_url,
-    required this.salePrice,
-    required this.discount,
-    required this.isFeatured,
+     this.thumbnailImage,
+     this.thumbnail_image_url,
+     this.salePrice,
+     this.discount,
+     this.isFeatured,
     required this.stockStatus,
-    required this.variations,
+     this.variations,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
