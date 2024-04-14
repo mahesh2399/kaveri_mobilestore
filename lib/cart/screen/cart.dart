@@ -31,7 +31,6 @@ class _CartScreenState extends State<CartScreen> {
     });
   }
 
-  
   String dropdownValue = 'One';
 
   String selectedCellText = 'Cash';
@@ -49,7 +48,7 @@ class _CartScreenState extends State<CartScreen> {
         child: Container(
           width: 75.w,
           height: 27,
-          margin: EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.green,
@@ -79,7 +78,7 @@ class _CartScreenState extends State<CartScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -129,7 +128,7 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+
 //button goes heare
                       const SizedBox(height: 10),
                       Column(
@@ -148,503 +147,7 @@ class _CartScreenState extends State<CartScreen> {
                           Container(
                             color: const Color.fromARGB(255, 206, 255, 208),
                             height: ScreenUtil().setHeight(400),
-                            child: BlocConsumer<CartBloc, CartState>(
-                              listener: (context, state) {
-                                if (state is CartLoadFailure) {
-        // TODO: Display an error message to the user
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(state.error)),
-        );
-      }
-                              },
-                              builder: (context, state) {
-                                if (state is CartLoading) {
-                                  return const Center(child: CircularProgressIndicator(),);
-                                  
-                                } else if (state is CartLoaded) {
-                                    return Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: state.productList.length,
-                                  itemBuilder: (context, index) {
-                                  return ItemsList(itemName: state.productList[index].name, widgetD: buildQuantityRow(), price: state.productList[index].price.toString() );
-                                },),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'SubTotal',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            '100rs',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Tax',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            '100rs',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text(
-                                            'Shipping Charge',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.all(8.0),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors
-                                                      .green), // Border color
-                                            ),
-                                            child: const Text(
-                                              '200rs',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Additional Discount',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text(
-                                            'Total',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.all(8.0),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors
-                                                      .green), // Border color
-                                            ),
-                                            child: const Text(
-                                              '200',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: SizedBox(
-                                              height: 45,
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: Colors.green,
-                                                  ),
-                                                ),
-                                                child: const TextField(
-                                                  decoration: InputDecoration(
-                                                    hintText: 'Enter value',
-                                                    border: InputBorder.none,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 10),
-                                          Expanded(
-                                            child: SizedBox(
-                                              height: 45,
-                                              child: Container(
-                                                padding: EdgeInsets.all(8.0),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: Colors.green,
-                                                    width: 2,
-                                                  ),
-                                                ),
-                                                child: DropdownButton<String>(
-                                                  value: dropdownValue,
-                                                  onChanged:
-                                                      (String? newValue) {
-                                                    setState(() {
-                                                      dropdownValue = newValue!;
-                                                    });
-                                                  },
-                                                  items: <String>[
-                                                    'One',
-                                                    'Two',
-                                                    'Three',
-                                                    'Four'
-                                                  ].map<
-                                                          DropdownMenuItem<
-                                                              String>>(
-                                                      (String value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    // Padding(
-                                    //   padding: const EdgeInsets.all(8.0),
-                                    //   child:
-                                    Center(
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            buildCell('Cash'),
-                                            buildCell('Card'),
-                                            buildCell('COD'),
-                                          ],
-                                        ),
-                                      ),
-                                      // ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Center(
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {},
-                                              child: Container(
-                                                width: 250.w,
-                                                height: 40,
-                                                decoration: const BoxDecoration(
-                                                  color: Colors.green,
-                                                  // borderRadius:
-                                                  //     BorderRadius.circular(8),
-                                                ),
-                                                child: const Center(
-                                                  child: Text(
-                                                    'Complete Order',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                                }
-                                 return Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                  // return ItemsList(itemName: itemName, widgetD: widgetD, price: price);
-                                },),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'SubTotal',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            '100rs',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Tax',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            '100rs',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text(
-                                            'Shipping Charge',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.all(8.0),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors
-                                                      .green), // Border color
-                                            ),
-                                            child: const Text(
-                                              '200rs',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Additional Discount',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text(
-                                            'Total',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Container(
-                                            padding:const EdgeInsets.all(8.0),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors
-                                                      .green), // Border color
-                                            ),
-                                            child: const Text(
-                                              '200',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: SizedBox(
-                                              height: 45,
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: Colors.green,
-                                                  ),
-                                                ),
-                                                child: const TextField(
-                                                  decoration: InputDecoration(
-                                                    hintText: 'Enter value',
-                                                    border: InputBorder.none,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 10),
-                                          Expanded(
-                                            child: SizedBox(
-                                              height: 45,
-                                              child: Container(
-                                                padding:const EdgeInsets.all(8.0),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: Colors.green,
-                                                    width: 2,
-                                                  ),
-                                                ),
-                                                child: DropdownButton<String>(
-                                                  value: dropdownValue,
-                                                  onChanged:
-                                                      (String? newValue) {
-                                                    setState(() {
-                                                      dropdownValue = newValue!;
-                                                    });
-                                                  },
-                                                  items: <String>[
-                                                    'One',
-                                                    'Two',
-                                                    'Three',
-                                                    'Four'
-                                                  ].map<
-                                                          DropdownMenuItem<
-                                                              String>>(
-                                                      (String value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    // Padding(
-                                    //   padding: const EdgeInsets.all(8.0),
-                                    //   child:
-                                    Center(
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            buildCell('Cash'),
-                                            buildCell('Card'),
-                                            buildCell('COD'),
-                                          ],
-                                        ),
-                                      ),
-                                      // ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Center(
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {},
-                                              child: Container(
-                                                width: 250.w,
-                                                height: 40,
-                                                decoration: const BoxDecoration(
-                                                  color: Colors.green,
-                                                  // borderRadius:
-                                                  //     BorderRadius.circular(8),
-                                                ),
-                                                child: const Center(
-                                                  child: Text(
-                                                    'Complete Order',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                               
-                              },
-                            ),
+                            child: itemCartCard(),
                           ),
                         ],
                       ),
@@ -656,6 +159,232 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Column itemCartCard() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        BlocConsumer<CartBloc, CartState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            if (state is CartLoaded) {
+              // return Container(
+              //   height: 300,
+              //   child: ListView.builder(
+              //     itemCount: 1,
+              //     shrinkWrap: true,
+              //     itemBuilder: (context, index) {
+              //       // return ItemsList(itemName: itemName, widgetD: widgetD, price: price);
+              //     },
+              //   ),
+              // );
+            }
+            return Container();
+          },
+        ),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'SubTotal',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                '100rs',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Tax',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                '100rs',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Shipping Charge',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: Colors.green), // Border color
+                ),
+                child: const TextField(
+                  decoration: InputDecoration(),
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Additional Discount',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: 45,
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: Colors.green,
+                      ),
+                    ),
+                    child: const TextField(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(bottom: 6),
+                        hintText: 'Enter value',
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: SizedBox(
+                  height: 45,
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.green,
+                        width: 2,
+                      ),
+                    ),
+                    child: DropdownButton<String>(
+                      value: dropdownValue,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue!;
+                        });
+                      },
+                      items: <String>['One', 'Two', 'Three', 'Four']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        // Padding(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child:
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Total',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.green), // Border color
+                ),
+                child: const Text(
+                  '200',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        Center(
+          child: Align(
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                buildCell('Cash'),
+              ],
+            ),
+          ),
+          // ),
+        ),
+        SizedBox(
+          height: 5.h,
+        ),
+        Center(
+          child: Align(
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    width: 250.w,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      color: Colors.green,
+                      // borderRadius:
+                      //     BorderRadius.circular(8),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Complete Order',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -707,7 +436,7 @@ class _CartScreenState extends State<CartScreen> {
                   style: TextStyle(
                     color: isSelected[index]
                         ? Colors.white
-                        : Color.fromRGBO(15, 117, 0, 1),
+                        : const Color.fromRGBO(15, 117, 0, 1),
                     fontWeight: FontWeight.bold,
                     fontSize: 12.sp,
                   ),
@@ -730,12 +459,12 @@ class _CartScreenState extends State<CartScreen> {
               border: Border.all(color: Colors.white),
             ),
             child: Container(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
                   text,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ),
@@ -834,7 +563,7 @@ class _CartScreenState extends State<CartScreen> {
                   icon,
                   color: isSelected[index]
                       ? Colors.white
-                      : Color.fromRGBO(15, 117, 0, 1),
+                      : const Color.fromRGBO(15, 117, 0, 1),
                   size: ScreenUtil().setWidth(20),
                 ),
                 SizedBox(height: ScreenUtil().setHeight(2)),
@@ -843,7 +572,7 @@ class _CartScreenState extends State<CartScreen> {
                   style: TextStyle(
                     color: isSelected[index]
                         ? Colors.white
-                        : Color.fromRGBO(15, 117, 0, 1),
+                        : const Color.fromRGBO(15, 117, 0, 1),
                     fontWeight: FontWeight.bold,
                     fontSize: 10.sp, // Adjusted font size
                   ),
@@ -854,7 +583,7 @@ class _CartScreenState extends State<CartScreen> {
                   style: TextStyle(
                     color: isSelected[index]
                         ? Colors.white
-                        : Color.fromRGBO(15, 117, 0, 1),
+                        : const Color.fromRGBO(15, 117, 0, 1),
                     fontWeight: FontWeight.bold,
                     fontSize: 10.sp, // Adjusted font size
                   ),
