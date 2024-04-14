@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fpdart/fpdart.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({super.key});
@@ -17,3 +18,7 @@ class HeaderWidget extends StatelessWidget {
     );
   }
 }
+
+//for api call 
+typedef EitherData<T> = Either<String, T>;
+

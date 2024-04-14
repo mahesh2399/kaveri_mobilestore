@@ -27,6 +27,10 @@ dependencies:
     sdk: flutter
   sqflite: ^2.3.2
   shared_preferences: ^2.2.3
+  fpdart: ^1.1.0
+  dio: ^5.4.3+1
+  string_validator: ^1.0.2
+  awesome_top_snackbar: ^0.0.3
   
 
 dev_dependencies:

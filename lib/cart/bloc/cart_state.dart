@@ -9,7 +9,17 @@ sealed class CartState extends Equatable {
 
 final class CartInitial extends CartState {}
 
-class CartLoading extends CartState {}
+enum CartLoadingEnum {
+  search,
+  newUser,
+  data,
+}
+
+class CartLoading extends CartState {
+  final CartLoadingEnum loadingEnum;
+
+  const CartLoading({required this.loadingEnum});
+}
 
 class CartLoaded extends CartState {
   final CartModel cartData;
@@ -21,4 +31,16 @@ class CartLoadFailure extends CartState {
   final String error;
 
   const CartLoadFailure(this.error);
+}
+
+class CartUserSearchLoadedState extends CartState {
+  final List<UserDetailModel> userDataList;
+
+  const CartUserSearchLoadedState({required this.userDataList});
+}
+
+class CartUserCreatedState extends CartState {
+  final UserDetailModel userData;
+
+  const CartUserCreatedState({required this.userData});
 }
