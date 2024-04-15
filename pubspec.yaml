@@ -31,6 +31,7 @@ dependencies:
   dio: ^5.4.3+1
   string_validator: ^1.0.2
   awesome_top_snackbar: ^0.0.3
+  dropdown_button2: ^2.3.9
   
 
 dev_dependencies:

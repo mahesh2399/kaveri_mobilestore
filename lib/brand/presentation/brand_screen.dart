@@ -215,7 +215,8 @@ class _BrandScreenState extends State<BrandScreen> {
                     listener: (context, productState) {
                       // switch (productState.runtimeType) {
                       //   case ProductsLoaded:
-                      //     products = (productState as ProductsLoaded).products;
+                      //     products = (productState as Produc
+                      // tsLoaded).products;
                       //     break;
                       //   case ProductSelectBrandState:
                       //     products = (productState as ProductSelectBrandState)

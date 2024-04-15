@@ -20,13 +20,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartCreateNewUserEvent>(_cartCreateNewUserEvent);
     on<CartPlusQuantityEvent>(_cartPlusQuantityEvent);
     on<CartMinusQuantityEvent>(_cartMinusQuantityEvent);
+    on<CartAddShipingChargesEvent>(_cartAddShipingChargesEvent);
+    on<CartAddDiscountEvent>(_cartAddDiscountEvent);
   }
 
   FutureOr<void> _cartEvent(CartEvent event, Emitter<CartState> emit) {}
   List<ProductsForCart> productList = [];
   int subTotal = 0;
   int tax = 0;
-  int grandTotal = 0;
+  double grandTotal = 0;
   FutureOr<void> _addtoCartPageEvent(
       AddtoCartPageEvent event, Emitter<CartState> emit) async {
     emit(const CartLoading(loadingEnum: CartLoadingEnum.data));
@@ -42,7 +44,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             productsList: productList,
             subTotal: subTotal,
             tax: tax,
-            grandTotal: subTotal + tax,
+            grandTotal: (subTotal + tax).toDouble(),
           ),
         ),
       );
@@ -66,7 +68,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           productsList: productList,
           subTotal: subTotal,
           tax: tax,
-          grandTotal: subTotal + tax,
+          grandTotal: (subTotal + tax).toDouble(),
         ),
       ),
     );
@@ -134,7 +136,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           productsList: productList,
           subTotal: subTotal,
           tax: tax,
-          grandTotal: subTotal + tax,
+          grandTotal: (subTotal + tax).toDouble(),
         ),
       ),
     );
@@ -162,9 +164,58 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           productsList: productList,
           subTotal: subTotal,
           tax: tax,
-          grandTotal: subTotal + tax,
+          grandTotal: (subTotal + tax).toDouble(),
         ),
       ),
     );
   }
+
+  FutureOr<void> _cartAddShipingChargesEvent(
+      CartAddShipingChargesEvent event, Emitter<CartState> emit) {
+    emit(CartInitial());
+    double shipingCharge = 0;
+    if (event.shipingCharge.trim() != '') {
+      shipingCharge = double.parse(event.shipingCharge);
+    }
+    grandTotal = subTotal + tax + shipingCharge;
+    emit(
+      CartLoaded(
+        CartModel(
+          productsList: productList,
+          subTotal: subTotal,
+          tax: tax,
+          grandTotal: grandTotal,
+        ),
+      ),
+    );
+  }
+
+  FutureOr<void> _cartAddDiscountEvent(
+      CartAddDiscountEvent event, Emitter<CartState> emit) {
+    emit(CartInitial());
+//TODO calculation for discount
+    emit(
+      CartLoaded(
+        CartModel(
+          productsList: productList,
+          subTotal: subTotal,
+          tax: tax,
+          grandTotal: grandTotal,
+        ),
+      ),
+    );
+  }
+}
+
+double calculateDiscountedTotal(double totalAmount, double discountPercentage) {
+  // Convert the discount percentage to a decimal
+  double discountPercentageDecimal = discountPercentage / 100;
+
+  // Calculate the discount
+  double discount = totalAmount * discountPercentageDecimal;
+
+  // Subtract the discount from the total amount
+  double discountedTotal = totalAmount - discount;
+
+  return discountedTotal;
 }

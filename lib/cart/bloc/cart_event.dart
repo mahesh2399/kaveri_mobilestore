@@ -39,7 +39,7 @@ class CartCreateNewUserEvent extends CartEvent {
 
 class CartPlusQuantityEvent extends CartEvent {
   final ProductsForCart addProduct;
-final int index;
+  final int index;
 
   CartPlusQuantityEvent({
     required this.addProduct,
@@ -49,9 +49,21 @@ final int index;
 
 class CartMinusQuantityEvent extends CartEvent {
   final ProductsForCart addProduct;
-final int index;
+  final int index;
   CartMinusQuantityEvent({
     required this.addProduct,
     required this.index,
   });
+}
+
+class CartAddShipingChargesEvent extends CartEvent {
+  final String shipingCharge;
+
+  CartAddShipingChargesEvent({required this.shipingCharge});
+}
+
+class CartAddDiscountEvent extends CartEvent {
+  final String discountPrice;
+  final String disCountType;//later change this with enum
+  CartAddDiscountEvent({required this.discountPrice,required this.disCountType});
 }

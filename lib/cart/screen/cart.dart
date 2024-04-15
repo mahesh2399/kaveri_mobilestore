@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kaveri/cart/bloc/cart_bloc.dart';
@@ -95,7 +96,10 @@ class _CartScreenState extends State<CartScreen> {
   TextEditingController searchUserController = TextEditingController();
   //selected int for the existing, new and guest customer
   int selectedCustomerType = 2;
-
+//shiping charges controller
+  TextEditingController shipingChargesController = TextEditingController();
+//shiping charges controller
+  TextEditingController discountController = TextEditingController();
   //cart details
   CartModel cartData =
       CartModel(productsList: [], subTotal: 0, tax: 0, grandTotal: 0);
@@ -386,45 +390,175 @@ class _CartScreenState extends State<CartScreen> {
                                   ],
                                 ),
                               ),
+                              //TODO tax commented
+                              // Padding(
+                              //   padding: const EdgeInsets.all(10),
+                              //   child: Row(
+                              //     mainAxisAlignment:
+                              //         MainAxisAlignment.spaceBetween,
+                              //     children: [
+                              //       const Text(
+                              //         'Tax',
+                              //         style: TextStyle(
+                              //           fontWeight: FontWeight.bold,
+                              //         ),
+                              //       ),
+                              //       // Text(
+                              //       //   cartData.tax.toString(),
+                              //       //   style: const TextStyle(
+                              //       //     fontWeight: FontWeight.bold,
+                              //       //   ),
+                              //       // ),
+                              //       Container(
+                              //         height: 40,
+                              //         width: 100,
+                              //         padding: const EdgeInsets.all(8.0),
+                              //         decoration: BoxDecoration(
+                              //           borderRadius: BorderRadius.circular(5),
+                              //           border: Border.all(
+                              //             color: const Color.fromARGB(
+                              //                 255, 46, 128, 49),
+                              //           ), // Border color
+                              //         ),
+                              //         child: DropdownButton<String>(
+                              //           hint: const Text('Select'),
+                              //           underline: const Text(''),
+                              //           value: taxValue,
+                              //           onChanged: (String? newValue) {
+                              //             setState(() {
+                              //               taxValue = newValue!;
+                              //             });
+                              //           },
+                              //           items: <String>['VAT 0%', 'VAT 5%']
+                              //               .map<DropdownMenuItem<String>>(
+                              //                   (String value) {
+                              //             return DropdownMenuItem<String>(
+                              //               value: value,
+                              //               child: Text(value),
+                              //             );
+                              //           }).toList(),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text(
-                                      'Tax',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                    Expanded(
+                                      flex: 4,
+                                      child: Text(
+                                        'Shipping Charges',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
-                                    // Text(
-                                    //   cartData.tax.toString(),
-                                    //   style: const TextStyle(
-                                    //     fontWeight: FontWeight.bold,
-                                    //   ),
-                                    // ),
-                                    Container(
-                                      height: 40,
-                                      width: 100,
-                                      padding: const EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              255, 46, 128, 49),
-                                        ), // Border color
-                                      ),
-                                      child: DropdownButton<String>(
-                                        hint: const Text('Select'),
-                                        underline: const Text(''),
-                                        value: taxValue,
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                            taxValue = newValue!;
-                                          });
+                                    Expanded(
+                                      flex: 1,
+                                      child: KTextformField(
+                                        labelText: '0.0',
+                                        validator: null,
+                                        controller: shipingChargesController,
+                                        keyboardType: TextInputType.number,
+                                        isLabelNameVisible: false,
+                                        inputFormate: [
+                                          FilteringTextInputFormatter.digitsOnly
+                                        ],
+                                        onChanged: (value) {
+                                          context.read<CartBloc>().add(
+                                              CartAddShipingChargesEvent(
+                                                  shipingCharge: value));
                                         },
-                                        items: <String>['VAT 0%', 'VAT 5%']
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: KTextformField(
+                                          labelText: 'Enter Value',
+                                          validator: null,
+                                          controller: discountController,
+                                          isLabelNameVisible: false,
+                                          onChanged: (value) {
+                                            if (dropdownValue != null) {
+                                              if (dropdownValue ==
+                                                  'Percent %') {
+                                                if (double.parse(value) <=
+                                                    100) {
+                                                  context.read<CartBloc>().add(
+                                                      CartAddDiscountEvent(
+                                                          discountPrice: value,
+                                                          disCountType:
+                                                              dropdownValue!));
+                                                } else {
+                                                  discountController.clear();
+
+                                                  showsuccesstop(
+                                                      context: context,
+                                                      text:
+                                                          'Please enter persentage from 0 to 100',
+                                                      icon: const Icon(
+                                                        CupertinoIcons
+                                                            .drop_triangle,
+                                                        color: Colors.red,
+                                                      ));
+                                                }
+                                              } else if (dropdownValue ==
+                                                  'Fixed') {
+                                                if (int.parse(value) <=
+                                                    cartData.subTotal) {
+                                                  context.read<CartBloc>().add(
+                                                      CartAddDiscountEvent(
+                                                          discountPrice: value,
+                                                          disCountType:
+                                                              dropdownValue!));
+                                                } else {
+                                                  discountController.clear();
+                                                  showsuccesstop(
+                                                      context: context,
+                                                      text:
+                                                          'Please enter price below ${cartData.grandTotal}',
+                                                      icon: const Icon(
+                                                        CupertinoIcons
+                                                            .drop_triangle,
+                                                        color: Colors.red,
+                                                      ));
+                                                }
+                                              }
+                                            } else {
+                                              showsuccesstop(
+                                                  context: context,
+                                                  text:
+                                                      'Please select discount type',
+                                                  icon: const Icon(
+                                                    CupertinoIcons
+                                                        .drop_triangle,
+                                                    color: Colors.red,
+                                                  ));
+                                            }
+                                          },
+                                          keyboardType: TextInputType.number),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      flex: 4,
+                                      child: KDropDownButton(
+                                        isLabelNameVisible: false,
+                                        items: <String>[
+                                          'Fixed',
+                                          'Percent %'
+                                        ] //Do not change the spelling of letter in this because we have used this in bloc for calculation as of now
                                             .map<DropdownMenuItem<String>>(
                                                 (String value) {
                                           return DropdownMenuItem<String>(
@@ -432,73 +566,24 @@ class _CartScreenState extends State<CartScreen> {
                                             child: Text(value),
                                           );
                                         }).toList(),
+                                        selectedItem: dropdownValue,
+                                        validator: null,
+                                        labelText: 'Select Discount',
+                                        disabled: false,
+                                        isSearchVisible: false,
+                                        textEditingController:
+                                            discountController,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            dropdownValue = newValue!;
+                                          });
+                                        },
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Shipping Charges',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 60,
-                                      height: 40,
-                                      // padding: EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              255, 46, 128, 49),
-                                        ), // Border color
-                                      ),
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 5),
-                                        child: TextFormField(
-                                          // initialValue: '0',
-                                          // '200rs'
-                                          onChanged: (value) {
-                                            try {
-                                              int parsedValue =
-                                                  int.parse(value);
-                                              setState(() {
-                                                grandTootal = parsedValue;
-                                              });
-                                            } catch (e) {
-                                              print('Invalid number: $value');
-                                              setState(() {
-                                                grandTootal =
-                                                    0; // Set to a default value
-                                              });
-                                            }
-                                          },
-                                          controller: shippingController ??
-                                              TextEditingController(text: '0'),
-                                          decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(5),
-                                            hintText: '0.0',
-                                            hintStyle: TextStyle(fontSize: 12),
-                                            border: InputBorder.none,
-                                          ),
 
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Row(
@@ -515,67 +600,6 @@ class _CartScreenState extends State<CartScreen> {
                                       "${grandTootal != 0 ? cartData.grandTotal + int.parse(shippingController!.text) : cartData.grandTotal}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        height: 40,
-                                        padding: const EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                            color: const Color.fromARGB(
-                                                255, 46, 128, 49),
-                                          ), // Border color
-                                        ),
-                                        child: const TextField(
-                                          decoration: InputDecoration(
-                                            hintText: 'Enter value',
-                                            border: InputBorder.none,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Expanded(
-                                      child: Container(
-                                        height: 40,
-                                        padding: const EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                            color: const Color.fromARGB(
-                                                255, 46, 128, 49),
-                                          ), // Border color
-                                        ),
-                                        child: DropdownButton<String>(
-                                          hint: const Text('Select Discount'),
-                                          underline: const Text(''),
-                                          value: dropdownValue,
-                                          onChanged: (String? newValue) {
-                                            setState(() {
-                                              dropdownValue = newValue!;
-                                            });
-                                          },
-                                          items: <String>['Fixed', 'Percent %']
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                        ),
                                       ),
                                     ),
                                   ],
