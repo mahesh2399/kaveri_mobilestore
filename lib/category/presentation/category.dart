@@ -247,14 +247,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
-              itemCount: productsData.length,
+              itemCount: _showAllProducts ? productsData.length : 8,
               shrinkWrap: true,
               gridDelegate:
                   //   SliverGridDelegateWithFixedCrossAxisCount(
 
                   SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
-                    ScreenUtil().screenWidth > ScreenUtil().setWidth(1) ? 4 : 3,
+                    ScreenUtil().screenWidth > ScreenUtil().setWidth(600)
+                        ? 5
+                        : 4,
               ),
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
