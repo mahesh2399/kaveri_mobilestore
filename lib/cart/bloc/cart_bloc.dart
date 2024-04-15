@@ -74,30 +74,45 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   FutureOr<void> _cartSearchUserEvent(
       CartSearchUserEvent event, Emitter<CartState> emit) async {
-    emit(const CartLoading(loadingEnum: CartLoadingEnum.search));
+    emit(
+      const CartLoading(loadingEnum: CartLoadingEnum.search),
+    );
 
     EitherData<List<UserDetailModel>> searchService = await getDirectorsData(
       searchQuery: event.searchQuery,
     );
-    searchService.fold((l) => emit(CartLoadFailure(l)),
-        (r) => emit(CartUserSearchLoadedState(userDataList: r)));
+    searchService.fold(
+      (l) => emit(
+        CartLoadFailure(l),
+      ),
+      (r) => emit(
+        CartUserSearchLoadedState(userDataList: r),
+      ),
+    );
   }
 
   FutureOr<void> _cartCreateNewUserEvent(
-      CartCreateNewUserEvent event, Emitter<CartState> emit) {
+      CartCreateNewUserEvent event, Emitter<CartState> emit) async {
     log('message');
     emit(const CartLoading(loadingEnum: CartLoadingEnum.newUser));
     //call api and retrive the user data
-    emit(
-      CartUserCreatedState(
-        userData: UserDetailModel(
-          userId: 'userId',
-          mobileNumber: event.mobileNumber,
-          emailAddress: event.emailId,
-          name: event.uerName,
+    final bool isDone = await createNewCustomer(
+        name: event.uerName,
+        email: event.emailId,
+        number: event.mobileNumber,
+        address: event.address);
+    if (isDone) {
+      emit(
+        CartUserCreatedState(
+          userData: UserDetailModel(
+            userId: 'userId',
+            mobileNumber: event.mobileNumber,
+            emailAddress: event.emailId,
+            name: event.uerName,
+          ),
         ),
-      ),
-    );
+      );
+    } else {}
   }
 
   FutureOr<void> _cartPlusQuantityEvent(
@@ -105,12 +120,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(const CartLoading(loadingEnum: CartLoadingEnum.data));
     productList[event.index].wantedQuantity =
         productList[event.index].wantedQuantity + 1;
-    productList[event.index].price = productList[event.index].wantedQuantity *
-        productList[event.index].price;//TODO hear when multipled the nwhen comes again multipled again leads to wrong output
+    // productList[event.index].price = productList[event.index].wantedQuantity *
+    //     productList[event.index]
+    //         .price; //TODO hear when multipled the nwhen comes again multipled again leads to wrong output
     productList[event.index] = productList[event.index];
     subTotal = 0;
     for (ProductsForCart product in productList) {
-      subTotal = subTotal + product.price;
+      subTotal = subTotal + (product.price * product.wantedQuantity);
     }
     emit(
       CartLoaded(
@@ -125,5 +141,30 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   FutureOr<void> _cartMinusQuantityEvent(
-      CartMinusQuantityEvent event, Emitter<CartState> emit) {}
+      CartMinusQuantityEvent event, Emitter<CartState> emit) {
+    emit(const CartLoading(loadingEnum: CartLoadingEnum.data));
+
+    if (productList[event.index].wantedQuantity != 1) {
+      productList[event.index].wantedQuantity =
+          productList[event.index].wantedQuantity - 1;
+    }
+    // productList[event.index].price = productList[event.index].wantedQuantity *
+    //     productList[event.index]
+    //         .price; //TODO hear when multipled the nwhen comes again multipled again leads to wrong output
+    productList[event.index] = productList[event.index];
+    subTotal = 0;
+    for (ProductsForCart product in productList) {
+      subTotal = subTotal + (product.price * product.wantedQuantity);
+    }
+    emit(
+      CartLoaded(
+        CartModel(
+          productsList: productList,
+          subTotal: subTotal,
+          tax: tax,
+          grandTotal: subTotal + tax,
+        ),
+      ),
+    );
+  }
 }

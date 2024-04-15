@@ -83,7 +83,7 @@ class CartModel {
   final List<ProductsForCart> productsList;
   final int subTotal;
   final int tax;
-  final int grandTotal;
+   int grandTotal;
   CartModel(
       {required this.productsList,
       required this.subTotal,

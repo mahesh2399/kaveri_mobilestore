@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +30,7 @@ class ItemsList extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 5),
-            child: Container(
+            child: SizedBox(
               width: 65,
               child: Text(
                 itemName,
@@ -102,7 +104,7 @@ class ProductsInCartWidget extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            padding: EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(2),
@@ -112,6 +114,7 @@ class ProductsInCartWidget extends StatelessWidget {
                 Expanded(
                   child: InkWell(
                     onTap: () {
+                      log('isTappe');
                       context.read<CartBloc>().add(
                             CartMinusQuantityEvent(
                               addProduct: products,
@@ -167,7 +170,7 @@ class ProductsInCartWidget extends StatelessWidget {
               onPressed: () {
                 context.read<CartBloc>().add(RemoveFromCartEvent(products));
               },
-              icon: Icon(
+              icon: const Icon(
                 CupertinoIcons.delete_simple,
                 color: Colors.green,
               )),

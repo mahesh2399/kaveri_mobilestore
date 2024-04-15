@@ -26,6 +26,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   List<bool> isSelected = [false, false, false];
   int quantity = 1;
+  TextEditingController? shippingController = TextEditingController(text: '0');
 
   void increaseQuantity() {
     setState(() {
@@ -42,8 +43,10 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   String? dropdownValue;
+  String? taxValue;
 
   String selectedCellText = 'Cash';
+  int grandTootal = 0;
 
   Widget buildCell(String text) {
     bool isSelected = selectedCellText == text;
@@ -275,7 +278,7 @@ class _CartScreenState extends State<CartScreen> {
                         }
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Column(
@@ -363,12 +366,12 @@ class _CartScreenState extends State<CartScreen> {
                                 },
                               ),
                               Padding(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'SubTotal',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -376,7 +379,7 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                     Text(
                                       cartData.subTotal.toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -384,21 +387,51 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Tax',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    Text(
-                                      cartData.tax.toString(),
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                    // Text(
+                                    //   cartData.tax.toString(),
+                                    //   style: const TextStyle(
+                                    //     fontWeight: FontWeight.bold,
+                                    //   ),
+                                    // ),
+                                    Container(
+                                      height: 40,
+                                      width: 100,
+                                      padding: const EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                          color: const Color.fromARGB(
+                                              255, 46, 128, 49),
+                                        ), // Border color
+                                      ),
+                                      child: DropdownButton<String>(
+                                        hint: const Text('Select'),
+                                        underline: const Text(''),
+                                        value: taxValue,
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            taxValue = newValue!;
+                                          });
+                                        },
+                                        items: <String>['VAT 0%', 'VAT 5%']
+                                            .map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
                                       ),
                                     ),
                                   ],
@@ -431,16 +464,35 @@ class _CartScreenState extends State<CartScreen> {
                                         padding:
                                             const EdgeInsets.only(bottom: 5),
                                         child: TextFormField(
-                                          initialValue: '0',
-                                          // '200rs',
+                                          // initialValue: '0',
+                                          // '200rs'
+                                          onChanged: (value) {
+                                            try {
+                                              int parsedValue =
+                                                  int.parse(value);
+                                              setState(() {
+                                                grandTootal = parsedValue;
+                                              });
+                                            } catch (e) {
+                                              print('Invalid number: $value');
+                                              setState(() {
+                                                grandTootal =
+                                                    0; // Set to a default value
+                                              });
+                                            }
+                                          },
+                                          controller: shippingController ??
+                                              TextEditingController(text: '0'),
                                           decoration: const InputDecoration(
                                             contentPadding: EdgeInsets.all(5),
+                                            hintText: '0.0',
                                             hintStyle: TextStyle(fontSize: 12),
                                             border: InputBorder.none,
                                           ),
 
                                           style: const TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -448,20 +500,20 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Total',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Text(
-                                      cartData.grandTotal.toString(),
-                                      style: TextStyle(
+                                      "${grandTootal != 0 ? cartData.grandTotal + int.parse(shippingController!.text) : cartData.grandTotal}",
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -507,7 +559,8 @@ class _CartScreenState extends State<CartScreen> {
                                           ), // Border color
                                         ),
                                         child: DropdownButton<String>(
-                                          underline: Text(''),
+                                          hint: const Text('Select Discount'),
+                                          underline: const Text(''),
                                           value: dropdownValue,
                                           onChanged: (String? newValue) {
                                             setState(() {
@@ -651,7 +704,7 @@ class _CartScreenState extends State<CartScreen> {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
-        final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+        final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
         return StatefulBuilder(builder: (context, setState) {
           return BottomSheetHalf(
@@ -660,7 +713,7 @@ class _CartScreenState extends State<CartScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: Form(
-                  key: _formKey,
+                  key: formKey,
                   child: Column(
                     children: [
                       KTextformField(
@@ -734,7 +787,7 @@ class _CartScreenState extends State<CartScreen> {
                       CustomButton(
                         text: 'Create',
                         onTap: () {
-                          final isvalidform = _formKey.currentState!.validate();
+                          final isvalidform = formKey.currentState!.validate();
                           if (isvalidform) {
                             //TODO call bloc for creating the user
                             context.read<CartBloc>().add(CartCreateNewUserEvent(
