@@ -67,7 +67,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
       },
     );
   }
- final GlobalKey<ScaffoldState> _scaffoldkey =  GlobalKey<ScaffoldState>();
+
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -309,13 +310,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   const SizedBox(height: 20),
                                   ElevatedButton(
                                     onPressed: () {
-                                      BlocProvider.of<CartBloc>(_scaffoldkey.currentContext!).add(
+                                      BlocProvider.of<CartBloc>(
+                                              _scaffoldkey.currentContext!)
+                                          .add(
                                         AddtoCartPageEvent(ProductsForCart(
+                                          wantedQuantity: 1,
                                           name: productsData[index].name,
                                           imageUrl: productsData[index]
                                               .thumbnail_image_url,
                                           price: productsData[index].salePrice,
-                                          stockQuantity:
+                                          availableQuantity:
                                               productsData[index].productsCount,
                                           discount:
                                               productsData[index].discount,

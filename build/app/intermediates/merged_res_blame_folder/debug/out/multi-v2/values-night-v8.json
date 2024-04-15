@@ -4,7 +4,7 @@
             "outputFile": "com.example.kaveri.app-mergeDebugResources-9:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\FC-LP-013\\Desktop\\kaveri\\kaveri_mobilestore\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "D:\\Flutter_projects\\kaveri_mobilestore\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

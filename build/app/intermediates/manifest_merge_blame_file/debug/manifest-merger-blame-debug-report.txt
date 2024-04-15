@@ -5,30 +5,30 @@
 5    android:versionName="1.0.0" >
 6
 7    <uses-sdk
-8        android:minSdkVersion="21"
-9        android:targetSdkVersion="34" />
+8        android:minSdkVersion="19"
+9        android:targetSdkVersion="33" />
 10    <!--
 11         The INTERNET permission is required for development. Specifically,
 12         the Flutter tool needs it to communicate with the running application
 13         to allow setting breakpoints, to provide hot reload, etc.
 14    -->
 15    <uses-permission android:name="android.permission.INTERNET" />
-15-->C:\Users\FC-LP-013\Desktop\kaveri\kaveri_mobilestore\android\app\src\main\AndroidManifest.xml:2:1-62
-15-->C:\Users\FC-LP-013\Desktop\kaveri\kaveri_mobilestore\android\app\src\main\AndroidManifest.xml:2:18-60
+15-->D:\Flutter_projects\kaveri_mobilestore\android\app\src\main\AndroidManifest.xml:2:1-62
+15-->D:\Flutter_projects\kaveri_mobilestore\android\app\src\main\AndroidManifest.xml:2:18-60
 16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-16-->C:\Users\FC-LP-013\Desktop\kaveri\kaveri_mobilestore\android\app\src\main\AndroidManifest.xml:3:5-80
-16-->C:\Users\FC-LP-013\Desktop\kaveri\kaveri_mobilestore\android\app\src\main\AndroidManifest.xml:3:22-78
+16-->D:\Flutter_projects\kaveri_mobilestore\android\app\src\main\AndroidManifest.xml:3:5-80
+16-->D:\Flutter_projects\kaveri_mobilestore\android\app\src\main\AndroidManifest.xml:3:22-78
 17    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-17-->C:\Users\FC-LP-013\Desktop\kaveri\kaveri_mobilestore\android\app\src\main\AndroidManifest.xml:4:5-79
-17-->C:\Users\FC-LP-013\Desktop\kaveri\kaveri_mobilestore\android\app\src\main\AndroidManifest.xml:4:22-77
+17-->D:\Flutter_projects\kaveri_mobilestore\android\app\src\main\AndroidManifest.xml:4:5-79
+17-->D:\Flutter_projects\kaveri_mobilestore\android\app\src\main\AndroidManifest.xml:4:22-77
 18    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-18-->[:connectivity_plus] C:\Users\FC-LP-013\Desktop\kaveri\kaveri_mobilestore\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
-18-->[:connectivity_plus] C:\Users\FC-LP-013\Desktop\kaveri\kaveri_mobilestore\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-76
+18-->[:connectivity_plus] D:\Flutter_projects\kaveri_mobilestore\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
+18-->[:connectivity_plus] D:\Flutter_projects\kaveri_mobilestore\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-76
 19
 20    <application
 21        android:name="android.app.Application"
 22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-22-->[androidx.core:core:1.6.0] C:\Users\FC-LP-013\.gradle\caches\transforms-3\7c1d12144b2ebda7a6da3814a09658ad\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
+22-->[androidx.core:core:1.6.0] C:\Users\premk\.gradle\caches\transforms-3\168e459aae59caaab0d2c703cf9d67ab\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
 23        android:debuggable="true"
 24        android:icon="@mipmap/ic_launcher"
 25        android:label="kaveri" >
@@ -66,17 +66,17 @@
 57            android:value="2" />
 58
 59        <uses-library
-59-->[androidx.window:window:1.0.0-beta04] C:\Users\FC-LP-013\.gradle\caches\transforms-3\78fbd64af62dbdf102ba7c817970421b\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+59-->[androidx.window:window:1.0.0-beta04] C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
 60            android:name="androidx.window.extensions"
-60-->[androidx.window:window:1.0.0-beta04] C:\Users\FC-LP-013\.gradle\caches\transforms-3\78fbd64af62dbdf102ba7c817970421b\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+60-->[androidx.window:window:1.0.0-beta04] C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
 61            android:required="false" />
-61-->[androidx.window:window:1.0.0-beta04] C:\Users\FC-LP-013\.gradle\caches\transforms-3\78fbd64af62dbdf102ba7c817970421b\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+61-->[androidx.window:window:1.0.0-beta04] C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
 62        <uses-library
-62-->[androidx.window:window:1.0.0-beta04] C:\Users\FC-LP-013\.gradle\caches\transforms-3\78fbd64af62dbdf102ba7c817970421b\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+62-->[androidx.window:window:1.0.0-beta04] C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
 63            android:name="androidx.window.sidecar"
-63-->[androidx.window:window:1.0.0-beta04] C:\Users\FC-LP-013\.gradle\caches\transforms-3\78fbd64af62dbdf102ba7c817970421b\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+63-->[androidx.window:window:1.0.0-beta04] C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
 64            android:required="false" />
-64-->[androidx.window:window:1.0.0-beta04] C:\Users\FC-LP-013\.gradle\caches\transforms-3\78fbd64af62dbdf102ba7c817970421b\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+64-->[androidx.window:window:1.0.0-beta04] C:\Users\premk\.gradle\caches\transforms-3\29fe38a5fd6c3bf46cd8e59c2b63489e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
 65    </application>
 66
 67</manifest>

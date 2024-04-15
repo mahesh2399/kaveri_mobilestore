@@ -26,8 +26,8 @@ class Product {
     this.blogsCount,
     required this.productsCount,
     this.thumbnailImage,
-    required  this.thumbnail_image_url,
-    required  this.salePrice,
+    required this.thumbnail_image_url,
+    required this.salePrice,
     required this.discount,
     this.isFeatured,
     required this.stockStatus,
@@ -61,27 +61,32 @@ class Product {
 }
 
 class ProductsForCart {
-  final String name;
-  final String imageUrl;
-  final int price;
-  final int stockQuantity;
-  final int discount;
-  final int tax;
+   String name;
+   String imageUrl;
+   int price;
+   int availableQuantity;
+   int wantedQuantity;//quantity needed for the user 
+   int discount;
+   int tax;
 
   ProductsForCart(
       {required this.name,
       required this.imageUrl,
       required this.price,
-      required this.stockQuantity,
+      required this.availableQuantity,
       required this.discount,
+      required this.wantedQuantity,
       required this.tax});
 }
 
 class CartModel {
   final List<ProductsForCart> productsList;
-  final String userId;
   final int subTotal;
   final int tax;
   final int grandTotal;
-  CartModel({required this.productsList, required this.userId, required this.subTotal, required this.tax, required this.grandTotal});
+  CartModel(
+      {required this.productsList,
+      required this.subTotal,
+      required this.tax,
+      required this.grandTotal});
 }

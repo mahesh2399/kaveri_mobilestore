@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kaveri/cart/bloc/cart_bloc.dart';
@@ -14,6 +13,7 @@ import 'package:kaveri/common/widgets/message_util.dart';
 import 'package:kaveri/common/widgets/text_field_widget.dart';
 import 'package:kaveri/cart/data/cart_utils_service.dart';
 import 'package:kaveri/constants/item_in_cart.dart';
+import 'package:kaveri/products/product_model/product_model.dart';
 import 'package:string_validator/string_validator.dart';
 
 class CartScreen extends StatefulWidget {
@@ -92,6 +92,10 @@ class _CartScreenState extends State<CartScreen> {
   TextEditingController searchUserController = TextEditingController();
   //selected int for the existing, new and guest customer
   int selectedCustomerType = 2;
+
+  //cart details
+  CartModel cartData =
+      CartModel(productsList: [], subTotal: 0, tax: 0, grandTotal: 0);
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -107,6 +111,9 @@ class _CartScreenState extends State<CartScreen> {
               break;
             case CartUserCreatedState:
               createdUserData = (cartState as CartUserCreatedState).userData;
+              break;
+            case CartLoaded:
+              cartData = (cartState as CartLoaded).cartData;
               break;
             default:
           }
@@ -346,16 +353,16 @@ class _CartScreenState extends State<CartScreen> {
                           child: Column(
                             children: [
                               ListView.builder(
-                                itemCount: 1,
+                                itemCount: cartData.productsList.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
-                                  return ItemsList(
-                                      itemName: 'itemName',
-                                      widgetD: buildQuantityRow(),
-                                      price: '');
+                                  return ProductsInCartWidget(
+                                    products: cartData.productsList[index],
+                                    index: index,
+                                  );
                                 },
                               ),
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
@@ -368,7 +375,7 @@ class _CartScreenState extends State<CartScreen> {
                                       ),
                                     ),
                                     Text(
-                                      '200',
+                                      cartData.subTotal.toString(),
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -376,7 +383,7 @@ class _CartScreenState extends State<CartScreen> {
                                   ],
                                 ),
                               ),
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
@@ -389,7 +396,7 @@ class _CartScreenState extends State<CartScreen> {
                                       ),
                                     ),
                                     Text(
-                                      '200',
+                                      cartData.tax.toString(),
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -440,17 +447,23 @@ class _CartScreenState extends State<CartScreen> {
                                   ],
                                 ),
                               ),
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Additional charges',
+                                      'Total',
                                       style: TextStyle(
-                                          // fontWeight: FontWeight.bold,
-                                          ),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      cartData.grandTotal.toString(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ],
                                 ),
