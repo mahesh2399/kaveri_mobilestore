@@ -276,7 +276,32 @@ class _CartScreenState extends State<CartScreen> {
                             ],
                           );
                         } else if (selectedCustomerType == 2) {
-                          return const Text('guest');
+                          return KTextformField(
+                            isLabelNameVisible: false,
+                            labelText: 'Enter mobile number or name',
+                            validator: null,
+                            enabled: selectedUser == null,
+                            controller: searchUserController,
+                            keyboardType: TextInputType.name,
+                            prefixIcon: const Icon(
+                              Icons.call,
+                              color: Colors.green,
+                            ),
+                            onChanged: (val) {
+                              String value = val.trim();
+                              if (value != '') {
+                                context
+                                    .read<CartBloc>()
+                                    .add(CartSearchUserEvent(
+                                      searchQuery: value,
+                                    ));
+                              } else {
+                                setState(() {
+                                  userDataList.clear();
+                                });
+                              }
+                            },
+                          );
                         } else {
                           return const SizedBox.shrink();
                         }
@@ -448,8 +473,8 @@ class _CartScreenState extends State<CartScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Expanded(
-                                      flex: 4,
+                                    const Expanded(
+                                      flex: 3,
                                       child: Text(
                                         'Shipping Charges',
                                         style: TextStyle(

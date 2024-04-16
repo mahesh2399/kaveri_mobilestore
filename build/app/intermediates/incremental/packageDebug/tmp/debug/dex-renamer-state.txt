@@ -1,4 +1,0 @@
-#Mon Apr 15 23:46:14 IST 2024
-base.0=D\:\\Flutter_projects\\kaveri_mobilestore\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
