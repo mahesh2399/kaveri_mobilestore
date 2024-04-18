@@ -46,6 +46,7 @@ class GetproductBloc extends Bloc<GetproductEvent, GetproductState> {
     emit(ProductsLoading());
     try {
       List<Product> result = await ProductService().fetchProducts();
+      
       emit(ProductsLoaded(result));
     } catch (e) {
       emit(ProductsLoadFailure(error: e.toString()));

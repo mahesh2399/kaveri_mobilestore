@@ -84,10 +84,10 @@ class ProductsInCartWidget extends StatelessWidget {
             padding: const EdgeInsets.all(3.0),
             child: Row(
               children: [
-                Expanded(
-                  flex: 2,
-                  child: Image.network("$imageAccess${products.imageUrl}"),
-                ),
+                // Expanded(
+                //   flex: 2,
+                //   child: Image.network("$imageAccess${products.imageUrl}"),
+                // ),
                 Expanded(
                   flex: 3,
                   child: Text(
@@ -99,6 +99,16 @@ class ProductsInCartWidget extends StatelessWidget {
             ),
           ),
         ),
+        Expanded(
+            child: Padding(
+          padding: const EdgeInsets.all(3),
+          child: Expanded(
+            child: Text(
+              products.unit,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        )),
         const SizedBox(
           width: 2,
         ),
@@ -156,24 +166,32 @@ class ProductsInCartWidget extends StatelessWidget {
         const SizedBox(
           width: 2,
         ),
+       
+       
+        // Expanded(
+        //   child: IconButton(
+        //       onPressed: () {
+        //         context.read<CartBloc>().add(RemoveFromCartEvent(products));
+        //       },
+        //       icon: const Icon(
+        //         CupertinoIcons.delete_simple,
+        //         color: Colors.green,
+        //       )),
+        // ),
         Expanded(
           child: Text(
             '${products.price}  ر.ع.',
             textAlign: TextAlign.center,
           ),
         ),
-        const SizedBox(
+         const SizedBox(
           width: 2,
         ),
-        Expanded(
-          child: IconButton(
-              onPressed: () {
-                context.read<CartBloc>().add(RemoveFromCartEvent(products));
-              },
-              icon: const Icon(
-                CupertinoIcons.delete_simple,
-                color: Colors.green,
-              )),
+         Expanded(
+          child: Text(
+            '${products.price * products.wantedQuantity}  ر.ع.',
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

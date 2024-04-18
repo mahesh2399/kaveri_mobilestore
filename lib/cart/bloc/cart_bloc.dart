@@ -29,6 +29,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   int subTotal = 0;
   int tax = 0;
   double grandTotal = 0;
+  double discount = 0;
   FutureOr<void> _addtoCartPageEvent(
       AddtoCartPageEvent event, Emitter<CartState> emit) async {
     emit(const CartLoading(loadingEnum: CartLoadingEnum.data));
@@ -41,11 +42,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       emit(
         CartLoaded(
           CartModel(
-            productsList: productList,
-            subTotal: subTotal,
-            tax: tax,
-            grandTotal: (subTotal + tax).toDouble(),
-          ),
+              productsList: productList,
+              subTotal: subTotal,
+              tax: tax,
+              grandTotal: (subTotal + tax).toDouble(),
+              discount: discount),
         ),
       );
     } catch (e) {
@@ -65,11 +66,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(
       CartLoaded(
         CartModel(
-          productsList: productList,
-          subTotal: subTotal,
-          tax: tax,
-          grandTotal: (subTotal + tax).toDouble(),
-        ),
+            productsList: productList,
+            subTotal: subTotal,
+            tax: tax,
+            grandTotal: (subTotal + tax).toDouble(),
+            discount: discount),
       ),
     );
   }
@@ -133,11 +134,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(
       CartLoaded(
         CartModel(
-          productsList: productList,
-          subTotal: subTotal,
-          tax: tax,
-          grandTotal: (subTotal + tax).toDouble(),
-        ),
+            productsList: productList,
+            subTotal: subTotal,
+            tax: tax,
+            grandTotal: (subTotal + tax).toDouble(),
+            discount: discount),
       ),
     );
   }
@@ -161,11 +162,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(
       CartLoaded(
         CartModel(
-          productsList: productList,
-          subTotal: subTotal,
-          tax: tax,
-          grandTotal: (subTotal + tax).toDouble(),
-        ),
+            productsList: productList,
+            subTotal: subTotal,
+            tax: tax,
+            grandTotal: (subTotal + tax).toDouble(),
+            discount: discount),
       ),
     );
   }
@@ -181,11 +182,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(
       CartLoaded(
         CartModel(
-          productsList: productList,
-          subTotal: subTotal,
-          tax: tax,
-          grandTotal: grandTotal,
-        ),
+            productsList: productList,
+            subTotal: subTotal,
+            tax: tax,
+            grandTotal: grandTotal,
+            discount: discount),
       ),
     );
   }
@@ -194,14 +195,30 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       CartAddDiscountEvent event, Emitter<CartState> emit) {
     emit(CartInitial());
 //TODO calculation for discount
+    if (event.disCountType == 'Fixed') {
+      log('stupid');
+      // double count = (subTotal + tax) - double.parse(event.discountPrice);
+      grandTotal = (subTotal + tax) - double.parse(event.discountPrice);
+    } else if (event.disCountType == 'Percent %') {
+      grandTotal = calculateDiscountedTotal(
+          (subTotal.toDouble() + tax.toDouble()),
+          double.parse(event.discountPrice));
+    }
+    // double count = double.parse(event.discountPrice) - (subTotal + tax);
+    // grandTotal += count;
+    // discount =
+    //     calculateDiscountedTotal(grandTotal, double.parse(event.discountPrice));
+    // double data = (subTotal.toDouble() + tax.toDouble());
+    // grandTotal =
+    //     calculateDiscountedTotal(data, double.parse(event.discountPrice));
     emit(
       CartLoaded(
         CartModel(
-          productsList: productList,
-          subTotal: subTotal,
-          tax: tax,
-          grandTotal: grandTotal,
-        ),
+            productsList: productList,
+            subTotal: subTotal,
+            tax: tax,
+            grandTotal: grandTotal,
+            discount: discount),
       ),
     );
   }

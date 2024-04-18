@@ -3,9 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaveri/brand/bloc/get_brands_bloc.dart';
-import 'package:kaveri/brand/brand)_model/brand_model.dart';
 import 'package:kaveri/cart/bloc/cart_bloc.dart';
-import 'package:kaveri/category/model/cateogyr_product_model.dart';
 import 'package:kaveri/common/widgets/custom_container_widget.dart';
 import 'package:kaveri/common/widgets/snackbar_widget.dart';
 import 'package:kaveri/constants/api_url.dart';
@@ -322,19 +320,22 @@ class _BrandScreenState extends State<BrandScreen> {
                                                     .add(
                                                       AddtoCartPageEvent(
                                                           ProductsForCart(
-                                                        availableQuantity:
-                                                            product
-                                                                .productsCount,
-                                                        wantedQuantity: 1,
-                                                        name: product.name,
-                                                        imageUrl: product
-                                                            .thumbnail_image_url,
-                                                        price:
-                                                            product.salePrice,
-                                                        discount:
-                                                            product.discount,
-                                                        tax: 0,
-                                                      )),
+                                                              availableQuantity:
+                                                                  product
+                                                                      .productsCount,
+                                                              wantedQuantity: 1,
+                                                              name:
+                                                                  product.name,
+                                                              imageUrl: product
+                                                                  .thumbnail_image_url,
+                                                              price: product
+                                                                  .salePrice,
+                                                              discount: product
+                                                                  .discount,
+                                                              tax: 0,
+                                                              unit: product
+                                                                      .unit['unit_code'] ??
+                                                                  'Nil',),),
                                                     );
                                                 Navigator.of(context).pop();
                                               },

@@ -45,9 +45,11 @@ class _CartScreenState extends State<CartScreen> {
 
   String? dropdownValue;
   String? taxValue;
+  String? selectStatus;
 
   String selectedCellText = 'Cash';
   int grandTootal = 0;
+  int grandToootal = 0;
 
   Widget buildCell(String text) {
     bool isSelected = selectedCellText == text;
@@ -101,8 +103,9 @@ class _CartScreenState extends State<CartScreen> {
 //shiping charges controller
   TextEditingController discountController = TextEditingController();
   //cart details
-  CartModel cartData =
-      CartModel(productsList: [], subTotal: 0, tax: 0, grandTotal: 0);
+
+  CartModel cartData = CartModel(
+      productsList: [], subTotal: 0, tax: 0, grandTotal: 0, discount: 0);
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -322,7 +325,24 @@ class _CartScreenState extends State<CartScreen> {
                                 child: const Padding(
                                   padding: EdgeInsets.all(10),
                                   child: Text(
-                                    'Item',
+                                    'Item Name',
+                                    style: TextStyle(color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 2,
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                color: const Color.fromARGB(255, 46, 128, 49),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    'Unit',
                                     style: TextStyle(color: Colors.white),
                                     textAlign: TextAlign.center,
                                   ),
@@ -370,7 +390,7 @@ class _CartScreenState extends State<CartScreen> {
                                 child: const Padding(
                                   padding: EdgeInsets.all(10),
                                   child: Text(
-                                    'Action',
+                                    'Item Total',
                                     style: TextStyle(color: Colors.white),
                                     textAlign: TextAlign.center,
                                   ),
@@ -415,6 +435,7 @@ class _CartScreenState extends State<CartScreen> {
                                   ],
                                 ),
                               ),
+
                               //TODO tax commented
                               // Padding(
                               //   padding: const EdgeInsets.all(10),
@@ -467,6 +488,7 @@ class _CartScreenState extends State<CartScreen> {
                               //     ],
                               //   ),
                               // ),
+
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Row(
@@ -515,17 +537,39 @@ class _CartScreenState extends State<CartScreen> {
                                           validator: null,
                                           controller: discountController,
                                           isLabelNameVisible: false,
-                                          onChanged: (value) {
+                                          onChanged: (val) {
+                                            try {
+                                              double parsedValue =
+                                                  double.parse(val);
+                                              setState(() {
+                                                grandToootal =
+                                                    parsedValue.toInt();
+                                              });
+                                            } catch (e) {
+                                              print('Invalid number: $val');
+                                              setState(() {
+                                                grandToootal =
+                                                    0; // Set to a default value
+                                              });
+                                            }
+                                            String value = val.trim();
                                             if (dropdownValue != null) {
                                               if (dropdownValue ==
                                                   'Percent %') {
-                                                if (double.parse(value) <=
-                                                    100) {
-                                                  context.read<CartBloc>().add(
-                                                      CartAddDiscountEvent(
-                                                          discountPrice: value,
-                                                          disCountType:
-                                                              dropdownValue!));
+                                                if (grandToootal <= 100) {
+                                                  if (grandToootal != 0) {
+                                                    context
+                                                        .read<CartBloc>()
+                                                        .add(
+                                                          CartAddDiscountEvent(
+                                                            discountPrice:
+                                                                grandToootal
+                                                                    .toString(),
+                                                            disCountType:
+                                                                dropdownValue!,
+                                                          ),
+                                                        );
+                                                  }
                                                 } else {
                                                   discountController.clear();
 
@@ -541,13 +585,21 @@ class _CartScreenState extends State<CartScreen> {
                                                 }
                                               } else if (dropdownValue ==
                                                   'Fixed') {
-                                                if (int.parse(value) <=
+                                                if (grandTootal <=
                                                     cartData.subTotal) {
-                                                  context.read<CartBloc>().add(
-                                                      CartAddDiscountEvent(
-                                                          discountPrice: value,
-                                                          disCountType:
-                                                              dropdownValue!));
+                                                  if (grandTootal != 0) {
+                                                    context
+                                                        .read<CartBloc>()
+                                                        .add(
+                                                          CartAddDiscountEvent(
+                                                            discountPrice:
+                                                                grandTootal
+                                                                    .toString(),
+                                                            disCountType:
+                                                                dropdownValue!,
+                                                          ),
+                                                        );
+                                                  }
                                                 } else {
                                                   discountController.clear();
                                                   showsuccesstop(
@@ -608,7 +660,50 @@ class _CartScreenState extends State<CartScreen> {
                                   ],
                                 ),
                               ),
-
+                              const Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Tax',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      "0.0",
+                                      // "${grandTootal != 0 ? cartData.grandTotal + int.parse(shippingController!.text) : cartData.grandTotal}",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Discount',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      "0.0",
+                                      // "${grandTootal != 0 ? cartData.grandTotal + int.parse(shippingController!.text) : cartData.grandTotal}",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Row(
@@ -628,6 +723,37 @@ class _CartScreenState extends State<CartScreen> {
                                       ),
                                     ),
                                   ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: KDropDownButton(
+                                    isLabelNameVisible: false,
+                                    items: <String>[
+                                      'Order Placed',
+                                      'Delivered'
+                                    ] //Do not change the spelling of letter in this because we have used this in bloc for calculation as of now
+                                        .map<DropdownMenuItem<String>>(
+                                            (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                    selectedItem: selectStatus,
+                                    validator: null,
+                                    labelText: 'Select Status',
+                                    disabled: false,
+                                    isSearchVisible: false,
+                                    textEditingController: discountController,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        selectStatus = newValue!;
+                                      });
+                                    },
+                                  ),
                                 ),
                               ),
                               Padding(

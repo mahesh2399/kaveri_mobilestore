@@ -247,7 +247,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
-              itemCount: _showAllProducts ? productsData.length : 8,
+              itemCount: _showAllProducts
+                  ? productsData.length
+                  : productsData.length < 8
+                      ? productsData.length
+                      : 8,
               shrinkWrap: true,
               gridDelegate:
                   //   SliverGridDelegateWithFixedCrossAxisCount(
@@ -316,6 +320,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               _scaffoldkey.currentContext!)
                                           .add(
                                         AddtoCartPageEvent(ProductsForCart(
+                                          unit: productsData[index]
+                                              .unit['unit_code'],
                                           wantedQuantity: 1,
                                           name: productsData[index].name,
                                           imageUrl: productsData[index]
