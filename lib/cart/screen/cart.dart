@@ -325,7 +325,7 @@ class _CartScreenState extends State<CartScreen> {
                                 child: const Padding(
                                   padding: EdgeInsets.all(10),
                                   child: Text(
-                                    'Item Name',
+                                    'Name',
                                     style: TextStyle(color: Colors.white),
                                     textAlign: TextAlign.center,
                                   ),
@@ -390,7 +390,7 @@ class _CartScreenState extends State<CartScreen> {
                                 child: const Padding(
                                   padding: EdgeInsets.all(10),
                                   child: Text(
-                                    'Item Total',
+                                    'Total',
                                     style: TextStyle(color: Colors.white),
                                     textAlign: TextAlign.center,
                                   ),
@@ -1099,7 +1099,7 @@ class _CartScreenState extends State<CartScreen> {
       ),
       child: Row(
         children: [
-          Flexible(
+          Expanded(
             flex: 1,
             child: IconButton(
               onPressed: decreaseQuantity,
@@ -1109,7 +1109,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
           ),
-          Flexible(
+          Expanded(
             flex: 1,
             child: Center(
               // Aligns the quantity text in the center
@@ -1122,7 +1122,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
           ),
-          Flexible(
+          Expanded(
             flex: 1,
             child: IconButton(
               onPressed: increaseQuantity,

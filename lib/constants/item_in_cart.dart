@@ -79,7 +79,6 @@ class ProductsInCartWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Expanded(
-          flex: 1,
           child: Padding(
             padding: const EdgeInsets.all(3.0),
             child: Row(
@@ -88,12 +87,9 @@ class ProductsInCartWidget extends StatelessWidget {
                 //   flex: 2,
                 //   child: Image.network("$imageAccess${products.imageUrl}"),
                 // ),
-                Expanded(
-                  flex: 3,
-                  child: Text(
-                    products.name,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                Text(
+                  products.name,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
@@ -102,11 +98,9 @@ class ProductsInCartWidget extends StatelessWidget {
         Expanded(
             child: Padding(
           padding: const EdgeInsets.all(3),
-          child: Expanded(
-            child: Text(
-              products.unit,
-              textAlign: TextAlign.center,
-            ),
+          child: Text(
+            products.unit,
+            textAlign: TextAlign.center,
           ),
         )),
         const SizedBox(
@@ -166,8 +160,7 @@ class ProductsInCartWidget extends StatelessWidget {
         const SizedBox(
           width: 2,
         ),
-       
-       
+
         // Expanded(
         //   child: IconButton(
         //       onPressed: () {
@@ -184,10 +177,10 @@ class ProductsInCartWidget extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-         const SizedBox(
+        const SizedBox(
           width: 2,
         ),
-         Expanded(
+        Expanded(
           child: Text(
             '${products.price * products.wantedQuantity}  ر.ع.',
             textAlign: TextAlign.center,
