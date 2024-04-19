@@ -43,7 +43,7 @@ class _CartScreenState extends State<CartScreen> {
     });
   }
 
-  String? dropdownValue;
+  String? selectedDiscount;
   String? taxValue;
   String? selectStatus;
 
@@ -105,7 +105,14 @@ class _CartScreenState extends State<CartScreen> {
   //cart details
 
   CartModel cartData = CartModel(
-      productsList: [], subTotal: 0, tax: 0, grandTotal: 0, discount: 0);
+    discountType: null,
+    shipmentCharges: 0,
+    productsList: [],
+    subTotal: 0,
+    tax: 0,
+    grandTotal: 0,
+    discount: 0,
+  );
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -124,6 +131,13 @@ class _CartScreenState extends State<CartScreen> {
               break;
             case CartLoaded:
               cartData = (cartState as CartLoaded).cartData;
+              discountController.text =
+                  cartData.discount == 0.0 ? '' : cartData.discount.toString();
+              selectedDiscount = cartData.discountType;
+              shipingChargesController.text =
+                  cartData.shipmentCharges.round() == 0
+                      ? ''
+                      : cartData.shipmentCharges.round().toString();
               break;
             default:
           }
@@ -407,6 +421,7 @@ class _CartScreenState extends State<CartScreen> {
                               ListView.builder(
                                 itemCount: cartData.productsList.length,
                                 shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return ProductsInCartWidget(
                                     products: cartData.productsList[index],
@@ -528,110 +543,13 @@ class _CartScreenState extends State<CartScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Expanded(
-                                      flex: 3,
-                                      child: KTextformField(
-                                          labelText: 'Enter Value',
-                                          validator: null,
-                                          controller: discountController,
-                                          isLabelNameVisible: false,
-                                          onChanged: (val) {
-                                            try {
-                                              double parsedValue =
-                                                  double.parse(val);
-                                              setState(() {
-                                                grandToootal =
-                                                    parsedValue.toInt();
-                                              });
-                                            } catch (e) {
-                                              print('Invalid number: $val');
-                                              setState(() {
-                                                grandToootal =
-                                                    0; // Set to a default value
-                                              });
-                                            }
-                                            String value = val.trim();
-                                            if (dropdownValue != null) {
-                                              if (dropdownValue ==
-                                                  'Percent %') {
-                                                if (grandToootal <= 100) {
-                                                  if (grandToootal != 0) {
-                                                    context
-                                                        .read<CartBloc>()
-                                                        .add(
-                                                          CartAddDiscountEvent(
-                                                            discountPrice:
-                                                                grandToootal
-                                                                    .toString(),
-                                                            disCountType:
-                                                                dropdownValue!,
-                                                          ),
-                                                        );
-                                                  }
-                                                } else {
-                                                  discountController.clear();
-
-                                                  showsuccesstop(
-                                                      context: context,
-                                                      text:
-                                                          'Please enter persentage from 0 to 100',
-                                                      icon: const Icon(
-                                                        CupertinoIcons
-                                                            .drop_triangle,
-                                                        color: Colors.red,
-                                                      ));
-                                                }
-                                              } else if (dropdownValue ==
-                                                  'Fixed') {
-                                                if (grandTootal <=
-                                                    cartData.subTotal) {
-                                                  if (grandTootal != 0) {
-                                                    context
-                                                        .read<CartBloc>()
-                                                        .add(
-                                                          CartAddDiscountEvent(
-                                                            discountPrice:
-                                                                grandTootal
-                                                                    .toString(),
-                                                            disCountType:
-                                                                dropdownValue!,
-                                                          ),
-                                                        );
-                                                  }
-                                                } else {
-                                                  discountController.clear();
-                                                  showsuccesstop(
-                                                      context: context,
-                                                      text:
-                                                          'Please enter price below ${cartData.grandTotal}',
-                                                      icon: const Icon(
-                                                        CupertinoIcons
-                                                            .drop_triangle,
-                                                        color: Colors.red,
-                                                      ));
-                                                }
-                                              }
-                                            } else {
-                                              showsuccesstop(
-                                                  context: context,
-                                                  text:
-                                                      'Please select discount type',
-                                                  icon: const Icon(
-                                                    CupertinoIcons
-                                                        .drop_triangle,
-                                                    color: Colors.red,
-                                                  ));
-                                            }
-                                          },
-                                          keyboardType: TextInputType.number),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Expanded(
                                       flex: 4,
                                       child: KDropDownButton(
-                                        isLabelNameVisible: false,
+                                        isLabelNameVisible: true,
                                         items: <String>[
                                           'Fixed',
                                           'Percent %'
@@ -643,7 +561,7 @@ class _CartScreenState extends State<CartScreen> {
                                             child: Text(value),
                                           );
                                         }).toList(),
-                                        selectedItem: dropdownValue,
+                                        selectedItem: selectedDiscount,
                                         validator: null,
                                         labelText: 'Select Discount',
                                         disabled: false,
@@ -652,11 +570,133 @@ class _CartScreenState extends State<CartScreen> {
                                             discountController,
                                         onChanged: (newValue) {
                                           setState(() {
-                                            dropdownValue = newValue!;
+                                            selectedDiscount = newValue!;
                                           });
                                         },
                                       ),
                                     ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      flex: 3,
+                                      child: KTextformField(
+                                          labelText: 'Enter Value',
+                                          validator: null,
+                                          controller: discountController,
+                                          isLabelNameVisible: true,
+                                          onChanged: (val) {},
+                                          keyboardType: TextInputType.number),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                        flex: 2,
+                                        child: CustomButton(
+                                            text: 'Apply',
+                                            onTap: () {
+                                              // String val = discountController
+                                              //     .text;
+                                              // try {
+                                              //   double parsedValue =
+                                              //       double.parse(val);
+                                              //   setState(() {
+                                              //     grandToootal =
+                                              //         parsedValue.toInt();
+                                              //   });
+                                              // } catch (e) {
+                                              //   print('Invalid number: $val');
+                                              //   setState(() {
+                                              //     grandToootal =
+                                              //         0; // Set to a default value
+                                              //   });
+                                              // }
+                                              // String value = val.trim();
+                                              if (selectedDiscount != null) {
+                                                if (discountController.text
+                                                        .trim() !=
+                                                    '') {
+                                                  if (selectedDiscount ==
+                                                      'Percent %') {
+                                                    if (grandToootal <= 100) {
+                                                      context
+                                                          .read<CartBloc>()
+                                                          .add(
+                                                            CartAddDiscountEvent(
+                                                              discountPrice:
+                                                                  discountController
+                                                                      .text
+                                                                      .toString()
+                                                                      .trim(),
+                                                              disCountType:
+                                                                  selectedDiscount!,
+                                                            ),
+                                                          );
+                                                    } else {
+                                                      discountController
+                                                          .clear();
+
+                                                      showsuccesstop(
+                                                          context: context,
+                                                          text:
+                                                              'Please enter persentage from 0 to 100',
+                                                          icon: const Icon(
+                                                            CupertinoIcons
+                                                                .drop_triangle,
+                                                            color: Colors.red,
+                                                          ));
+                                                    }
+                                                  } else if (selectedDiscount ==
+                                                      'Fixed') {
+                                                    if (grandTootal <=
+                                                        cartData.subTotal) {
+                                                      context
+                                                          .read<CartBloc>()
+                                                          .add(
+                                                            CartAddDiscountEvent(
+                                                              discountPrice:
+                                                                  discountController
+                                                                      .text
+                                                                      .toString()
+                                                                      .trim(),
+                                                              disCountType:
+                                                                  selectedDiscount!,
+                                                            ),
+                                                          );
+                                                    } else {
+                                                      discountController
+                                                          .clear();
+                                                      showsuccesstop(
+                                                          context: context,
+                                                          text:
+                                                              'Please enter price below ${cartData.grandTotal}',
+                                                          icon: const Icon(
+                                                            CupertinoIcons
+                                                                .drop_triangle,
+                                                            color: Colors.red,
+                                                          ));
+                                                    }
+                                                  }
+                                                } else {
+                                                  context.read<CartBloc>().add(
+                                                        CartAddDiscountEvent(
+                                                          discountPrice:
+                                                              0.0.toString(),
+                                                          disCountType:
+                                                              selectedDiscount!,
+                                                        ),
+                                                      );
+                                                }
+                                              } else {
+                                                showsuccesstop(
+                                                    context: context,
+                                                    text:
+                                                        'Please select discount type',
+                                                    icon: const Icon(
+                                                      CupertinoIcons
+                                                          .drop_triangle,
+                                                      color: Colors.red,
+                                                    ));
+                                              }
+                                            },
+                                            bgcolor: Colors.green))
                                   ],
                                 ),
                               ),
@@ -717,7 +757,8 @@ class _CartScreenState extends State<CartScreen> {
                                       ),
                                     ),
                                     Text(
-                                      "${grandTootal != 0 ? cartData.grandTotal + int.parse(shippingController!.text) : cartData.grandTotal}",
+                                      // "${grandTootal != 0 ? cartData.grandTotal + int.parse(shippingController!.text) : cartData.grandTotal}",
+                                      '${cartData.grandTotal}',
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -778,19 +819,24 @@ class _CartScreenState extends State<CartScreen> {
                                 child: Row(
                                   children: [
                                     Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 46, 128, 49),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        padding: const EdgeInsets.all(5),
-                                        child: const Text(
-                                          'Complete Order',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
+                                      child: InkWell(
+                                        onTap: () {
+                                          
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                                255, 46, 128, 49),
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          padding: const EdgeInsets.all(5),
+                                          child: const Text(
+                                            'Complete Order',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                       ),

@@ -52,7 +52,6 @@ class KTextformField extends StatelessWidget {
           child: Text(
             labelText,
             style: TextStyle(
-              fontSize: 14.sp,
               color: Colors.black,
               fontWeight: FontWeight.w500,
             ),
@@ -152,7 +151,7 @@ class KDropDownButton extends StatelessWidget {
             child: Text(
               labelText,
               style: TextStyle(
-                  fontSize: 14.sp,
+                  // fontSize: 14.sp,
                   color: Colors.black,
                   fontWeight: FontWeight.w500),
             ),

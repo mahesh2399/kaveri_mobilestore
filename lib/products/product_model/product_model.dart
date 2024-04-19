@@ -88,11 +88,16 @@ class CartModel {
   final int subTotal;
   final int tax;
   double grandTotal;
-  final discount;
-  CartModel(
-      {required this.productsList,
-      required this.subTotal,
-      required this.tax,
-      required this.grandTotal,
-      required this.discount});
+  double discount;
+  double shipmentCharges;
+   String? discountType;
+  CartModel({
+    required this.productsList,
+    required this.subTotal,
+    required this.tax,
+    required this.grandTotal,
+    required this.shipmentCharges,
+    required this.discount,
+    required this.discountType,
+  });
 }

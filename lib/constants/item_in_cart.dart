@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:kaveri/cart/bloc/cart_bloc.dart';
+import 'package:kaveri/common/widgets/message_util.dart';
 import 'package:kaveri/constants/api_url.dart';
 import 'package:kaveri/products/product_model/product_model.dart';
 
@@ -75,118 +76,120 @@ class ProductsInCartWidget extends StatelessWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: Row(
-              children: [
-                // Expanded(
-                //   flex: 2,
-                //   child: Image.network("$imageAccess${products.imageUrl}"),
-                // ),
-                Text(
-                  products.name,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
-          ),
-        ),
-        Expanded(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Expanded(
             child: Padding(
-          padding: const EdgeInsets.all(3),
-          child: Text(
-            products.unit,
-            textAlign: TextAlign.center,
-          ),
-        )),
-        const SizedBox(
-          width: 2,
-        ),
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.all(2),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(2),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      log('isTappe');
-                      context.read<CartBloc>().add(
-                            CartMinusQuantityEvent(
-                              addProduct: products,
-                              index: index,
-                            ),
-                          );
-                    },
-                    child: Icon(
-                      Icons.remove,
-                      size: 13.r,
-                    ),
-                  ),
-                ),
-                Expanded(
-                    child: Text(
-                  products.wantedQuantity.toString(),
-                  textAlign: TextAlign.center,
-                )),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      context.read<CartBloc>().add(
-                            CartPlusQuantityEvent(
-                              addProduct: products,
-                              index: index,
-                            ),
-                          );
-                    },
-                    child: Icon(
-                      Icons.add,
-                      size: 13.r,
-                    ),
-                  ),
-                ),
-              ],
+              padding: const EdgeInsets.all(3.0),
+              child: Text(
+                products.name,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
-        ),
-        const SizedBox(
-          width: 2,
-        ),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.all(3),
+            child: Text(
+              products.unit,
+              textAlign: TextAlign.center,
+            ),
+          )),
+          const SizedBox(
+            width: 2,
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        log('isTappe');
+                        context.read<CartBloc>().add(
+                              CartMinusQuantityEvent(
+                                addProduct: products,
+                                index: index,
+                              ),
+                            );
+                      },
+                      child: Icon(
+                        Icons.remove,
+                        size: 13.r,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                      child: Text(
+                    products.wantedQuantity.toString(),
+                    textAlign: TextAlign.center,
+                  )),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        if (products.availableQuantity >
+                            products.wantedQuantity) {
+                          context.read<CartBloc>().add(
+                                CartPlusQuantityEvent(
+                                  addProduct: products,
+                                  index: index,
+                                ),
+                              );
+                        } else {
+                          showsuccesstop(
+                              context: context,
+                              text: 'Product quantity limit reached');
+                        }
+                      },
+                      child: Icon(
+                        Icons.add,
+                        size: 13.r,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 2,
+          ),
 
-        // Expanded(
-        //   child: IconButton(
-        //       onPressed: () {
-        //         context.read<CartBloc>().add(RemoveFromCartEvent(products));
-        //       },
-        //       icon: const Icon(
-        //         CupertinoIcons.delete_simple,
-        //         color: Colors.green,
-        //       )),
-        // ),
-        Expanded(
-          child: Text(
-            '${products.price}  ر.ع.',
-            textAlign: TextAlign.center,
+          // Expanded(
+          //   child: IconButton(
+          //       onPressed: () {
+          //         context.read<CartBloc>().add(RemoveFromCartEvent(products));
+          //       },
+          //       icon: const Icon(
+          //         CupertinoIcons.delete_simple,
+          //         color: Colors.green,
+          //       )),
+          // ),
+          Expanded(
+            child: Text(
+              '${products.price}  ر.ع.',
+              textAlign: TextAlign.center,
+            ),
           ),
-        ),
-        const SizedBox(
-          width: 2,
-        ),
-        Expanded(
-          child: Text(
-            '${products.price * products.wantedQuantity}  ر.ع.',
-            textAlign: TextAlign.center,
+          const SizedBox(
+            width: 2,
           ),
-        ),
-      ],
+          Expanded(
+            child: Text(
+              '${products.price * products.wantedQuantity}  ر.ع.',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
