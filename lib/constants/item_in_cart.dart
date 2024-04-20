@@ -184,6 +184,16 @@ class ProductsInCartWidget extends StatelessWidget {
           ),
           Expanded(
             child: Text(
+              '${products.discount}  ر.ع.',
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(
+            width: 2,
+          ),
+
+          Expanded(
+            child: Text(
               '${products.price * products.wantedQuantity}  ر.ع.',
               textAlign: TextAlign.center,
             ),

@@ -395,6 +395,22 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                               ),
                             ),
+                             const SizedBox(
+                              width: 2,
+                            ),
+                            Expanded(
+                              child: Container(
+                                color: const Color.fromARGB(255, 46, 128, 49),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    'Discount',
+                                    style: TextStyle(color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
                             const SizedBox(
                               width: 2,
                             ),
@@ -592,23 +608,7 @@ class _CartScreenState extends State<CartScreen> {
                                         child: CustomButton(
                                             text: 'Apply',
                                             onTap: () {
-                                              // String val = discountController
-                                              //     .text;
-                                              // try {
-                                              //   double parsedValue =
-                                              //       double.parse(val);
-                                              //   setState(() {
-                                              //     grandToootal =
-                                              //         parsedValue.toInt();
-                                              //   });
-                                              // } catch (e) {
-                                              //   print('Invalid number: $val');
-                                              //   setState(() {
-                                              //     grandToootal =
-                                              //         0; // Set to a default value
-                                              //   });
-                                              // }
-                                              // String value = val.trim();
+                                            
                                               if (selectedDiscount != null) {
                                                 if (discountController.text
                                                         .trim() !=
@@ -636,7 +636,7 @@ class _CartScreenState extends State<CartScreen> {
                                                       showsuccesstop(
                                                           context: context,
                                                           text:
-                                                              'Please enter persentage from 0 to 100',
+                                                              'Please enter percentage from 0 to 100',
                                                           icon: const Icon(
                                                             CupertinoIcons
                                                                 .drop_triangle,

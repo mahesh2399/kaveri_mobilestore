@@ -60,7 +60,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
               subTotal: subTotal,
               tax: tax,
               grandTotal: grandTotal,
-              discount: discount),
+              discount: event.product.discount.toDouble()),
         ),
       );
     } catch (e) {
